@@ -4,7 +4,7 @@ import { X, ArrowRight, Search, Check, AlertCircle } from "lucide-react";
 import SceneShell from "../components/SceneShell";
 import ClueUnlockedToast from "../components/ClueUnlockedToast";
 import CloseUpDiagram from "../components/CloseUpDiagram";
-import { SCENE2_HOTSPOTS, SCENE2_QUIZ } from "../data/gameContent";
+import { SCENE2_HOTSPOTS, SCENE2_QUIZZES } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
 import useT from "../hooks/useT";
@@ -15,7 +15,7 @@ export default function Scene2Symptoms() {
   const [activeSpot, setActiveSpot] = useState(null);
   const [toastClue, setToastClue] = useState(null);
   const [quizOpen, setQuizOpen] = useState(false);
-  const [quizChosen, setQuizChosen] = useState(null);
+  const [quizChosen, setQuizChosen] = useState({}); // { [quizId]: choice }
 
   const foundSpotIds = useMemo(
     () => new Set(state.journal.clues.filter((c) => c.unlockedInScene === 2).map((c) => c.id)),
@@ -34,12 +34,15 @@ export default function Scene2Symptoms() {
     }
   };
 
-  const handleQuizAnswer = (choice) => {
+  const handleQuizAnswer = (quizId, choice) => {
     playClick();
-    setQuizChosen(choice);
-    answerQuiz(SCENE2_QUIZ.id, choice.id);
+    setQuizChosen((prev) => ({ ...prev, [quizId]: choice }));
+    answerQuiz(quizId, choice.id);
     if (choice.correct) addScore("symptomQuiz", 10);
   };
+
+  const answeredCount = SCENE2_QUIZZES.filter((q) => state.quizAnswers[q.id]).length;
+  const allAnswered = answeredCount === SCENE2_QUIZZES.length;
 
   return (
     <SceneShell
@@ -62,12 +65,12 @@ export default function Scene2Symptoms() {
 
       {/* Progress badge */}
       <div className="absolute right-6 top-24 md:top-28 z-20 bg-paper/95 backdrop-blur rounded-xl px-4 py-3 shadow-card border border-primary/10">
-        <div className="font-mono uppercase text-[10px] tracking-widest text-primary/60">
+        <div className="font-mono uppercase text-[10px] tracking-widest text-primary/80">
           {t("scene.2.buktiLabel")}
         </div>
         <div className="font-display font-bold text-3xl text-maroon leading-none">
           {foundCount}
-          <span className="text-primary/40 text-xl">/{SCENE2_HOTSPOTS.length}</span>
+          <span className="text-primary/80 text-xl">/{SCENE2_HOTSPOTS.length}</span>
         </div>
       </div>
 
@@ -121,7 +124,7 @@ export default function Scene2Symptoms() {
                 Temukan {SCENE2_HOTSPOTS.length - foundCount} gejala lagi untuk membuka kuis.
               </span>
             </div>
-          ) : !state.quizAnswers[SCENE2_QUIZ.id] ? (
+          ) : !allAnswered ? (
             <button
               data-testid="scene2-open-quiz-btn"
               onClick={() => {
@@ -130,7 +133,7 @@ export default function Scene2Symptoms() {
               }}
               className="btn-primary"
             >
-              Buka Kuis Mini <ArrowRight size={16} />
+              Buka Kuis Mini ({answeredCount}/{SCENE2_QUIZZES.length}) <ArrowRight size={16} />
             </button>
           ) : (
             <button
@@ -166,12 +169,12 @@ export default function Scene2Symptoms() {
       <AnimatePresence>
         {quizOpen && (
           <QuizModal
-            answered={state.quizAnswers[SCENE2_QUIZ.id]}
+            quizzes={SCENE2_QUIZZES}
+            answers={state.quizAnswers}
             chosen={quizChosen}
             onChoose={handleQuizAnswer}
             onClose={() => {
               setQuizOpen(false);
-              setQuizChosen(null);
             }}
           />
         )}
@@ -230,11 +233,23 @@ function ClueDetailModal({ spot, onClose }) {
   );
 }
 
-function QuizModal({ chosen, answered, onChoose, onClose }) {
-  const isDone = !!answered || !!chosen;
-  const activeChoice = SCENE2_QUIZ.choices.find(
-    (c) => c.id === (chosen?.id || answered)
+function QuizModal({ quizzes, answers, chosen, onChoose, onClose }) {
+  const [current, setCurrent] = React.useState(() => {
+    // start at first unanswered
+    const idx = quizzes.findIndex((q) => !answers[q.id]);
+    return idx === -1 ? 0 : idx;
+  });
+  const quiz = quizzes[current];
+  const answeredId = answers[quiz.id];
+  const chosenObj = chosen[quiz.id];
+  const isDone = !!answeredId || !!chosenObj;
+  const activeChoice = quiz.choices.find(
+    (c) => c.id === (chosenObj?.id || answeredId)
   );
+
+  const allAnswered = quizzes.every((q) => answers[q.id]);
+  const isLast = current === quizzes.length - 1;
+
   return (
     <motion.div
       className="fixed inset-0 z-[65] bg-black/70 grid place-items-center p-4"
@@ -247,33 +262,58 @@ function QuizModal({ chosen, answered, onChoose, onClose }) {
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="paper-bg w-full max-w-2xl rounded-2xl shadow-floating p-8 relative border-t-8 border-teal"
+        className="paper-bg w-full max-w-2xl rounded-2xl shadow-floating p-6 md:p-8 relative border-t-8 border-teal"
       >
-        <div className="tag-concept mb-3">Kuis Mini · Scene 2</div>
-        <h3 className="font-display font-bold text-primary text-2xl leading-snug">
-          {SCENE2_QUIZ.question}
+        <div className="flex items-center justify-between mb-3">
+          <div className="tag-concept">
+            Kuis Mini · Soal {current + 1} / {quizzes.length}
+          </div>
+          {/* dot progress */}
+          <div className="flex items-center gap-1.5">
+            {quizzes.map((q, i) => {
+              const done = !!answers[q.id];
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => setCurrent(i)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    i === current
+                      ? "w-6 bg-teal"
+                      : done
+                      ? "w-2.5 bg-teal-dark"
+                      : "w-2.5 bg-primary/25"
+                  }`}
+                  data-testid={`quiz-dot-${i}`}
+                  aria-label={`Ke soal ${i + 1}`}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <h3 className="font-display font-bold text-primary text-xl md:text-2xl leading-snug">
+          {quiz.question}
         </h3>
-        <div className="mt-5 space-y-3">
-          {SCENE2_QUIZ.choices.map((c) => {
+        <div className="mt-4 md:mt-5 space-y-2.5">
+          {quiz.choices.map((c) => {
             const selected = activeChoice?.id === c.id;
             const revealed = isDone;
             return (
               <button
                 key={c.id}
-                data-testid={`quiz-choice-${c.id}`}
+                data-testid={`quiz-choice-${quiz.id}-${c.id}`}
                 disabled={isDone}
-                onClick={() => onChoose(c)}
+                onClick={() => onChoose(quiz.id, c)}
                 className={`w-full text-left rounded-lg px-4 py-3 border-2 transition font-body ${
                   revealed
                     ? c.correct
                       ? "border-teal bg-teal/15 text-teal-dark"
                       : selected
                       ? "border-maroon bg-maroon/10 text-maroon"
-                      : "border-primary/15 bg-paper text-primary/70"
-                    : "border-primary/20 bg-paper text-primary hover:border-teal hover:bg-teal/10"
+                      : "border-primary/20 bg-paper text-primary/85"
+                    : "border-primary/25 bg-paper text-primary hover:border-teal hover:bg-teal/10"
                 }`}
               >
-                <span className="font-mono text-xs mr-2 uppercase">{c.id})</span>
+                <span className="font-mono text-xs mr-2 uppercase font-bold">{c.id})</span>
                 {c.text}
               </button>
             );
@@ -281,7 +321,7 @@ function QuizModal({ chosen, answered, onChoose, onClose }) {
         </div>
         {isDone && activeChoice && (
           <div
-            className={`mt-5 rounded-lg p-4 font-body ${
+            className={`mt-4 rounded-lg p-4 font-body ${
               activeChoice.correct ? "bg-teal/15 text-teal-dark" : "bg-maroon/10 text-maroon"
             }`}
             data-testid="quiz-feedback"
@@ -293,14 +333,32 @@ function QuizModal({ chosen, answered, onChoose, onClose }) {
             <div>{activeChoice.feedback}</div>
           </div>
         )}
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-5 flex flex-wrap justify-between items-center gap-3">
           <button
             onClick={onClose}
-            className="btn-secondary"
+            className="btn-secondary !py-2"
             data-testid="quiz-close-btn"
           >
-            {isDone ? "Tutup" : "Nanti Saja"}
+            {allAnswered ? "Tutup" : "Nanti Saja"}
           </button>
+          {isDone && !isLast && (
+            <button
+              onClick={() => setCurrent(current + 1)}
+              className="btn-primary !py-2"
+              data-testid="quiz-next-btn"
+            >
+              Soal Berikutnya <ArrowRight size={14} />
+            </button>
+          )}
+          {isDone && isLast && allAnswered && (
+            <button
+              onClick={onClose}
+              className="btn-primary !py-2"
+              data-testid="quiz-selesai-btn"
+            >
+              Selesai <Check size={14} />
+            </button>
+          )}
         </div>
       </motion.div>
     </motion.div>

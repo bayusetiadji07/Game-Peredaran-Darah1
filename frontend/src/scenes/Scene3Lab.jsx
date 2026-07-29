@@ -77,7 +77,7 @@ export default function Scene3Lab() {
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 md:gap-6">
             {/* Cards to drag */}
             <div className="bg-paper/95 rounded-2xl p-4 shadow-paper border border-primary/10 overflow-y-auto">
-              <div className="font-mono uppercase text-[10px] tracking-widest text-primary/60 mb-2 flex items-center gap-2">
+              <div className="font-mono uppercase text-[10px] tracking-widest text-primary/80 mb-2 flex items-center gap-2">
                 <FlaskConical size={12} /> Lembar Hasil Lab
               </div>
               <div className="space-y-3">
@@ -109,7 +109,7 @@ export default function Scene3Lab() {
                         )}
                       </div>
                       <div className="font-mono text-lg text-maroon mt-1">{item.value}</div>
-                      <div className="font-body text-xs text-primary/60 mt-0.5">
+                      <div className="font-body text-xs text-primary/80 mt-0.5">
                         {item.referenceText}
                       </div>
                     </div>
@@ -173,7 +173,7 @@ export default function Scene3Lab() {
                 onError={(e) => (e.currentTarget.style.display = "none")}
               />
               <div>
-                <div className="font-mono uppercase tracking-widest text-[10px] text-primary/60">
+                <div className="font-mono uppercase tracking-widest text-[10px] text-primary/80">
                   Pengamatan Mikroskopik
                 </div>
                 <div className="font-body text-primary text-sm max-w-md">
@@ -241,11 +241,11 @@ function DropZone({ testid, label, color, over, onDragOver, onDragLeave, onDrop,
         <span className={`px-3 py-1 rounded-full text-xs font-body font-bold uppercase tracking-widest ${colorMap.chip}`}>
           {label}
         </span>
-        <span className="font-mono text-xs text-primary/60">{items.length} kartu</span>
+        <span className="font-mono text-xs text-primary/80">{items.length} kartu</span>
       </div>
       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2 content-start">
         {items.length === 0 && (
-          <div className="col-span-full h-full grid place-items-center text-primary/40 font-body italic text-sm">
+          <div className="col-span-full h-full grid place-items-center text-primary/80 font-body italic text-sm">
             Seret kartu ke sini
           </div>
         )}

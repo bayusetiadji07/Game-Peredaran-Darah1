@@ -60,13 +60,20 @@
     @apply inline-flex items-center gap-2 text-primary px-5 py-2 rounded-full font-body font-medium hover:bg-primary/10 transition;
   }
   .tag-concept {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-teal/15 text-teal-dark px-3 py-1 text-[11px] font-mono uppercase tracking-widest;
+    @apply inline-flex items-center gap-1.5 rounded-full bg-teal/20 text-teal-dark px-3 py-1 text-[11px] font-mono uppercase tracking-widest font-bold;
   }
   .tag-ssi {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-maroon/15 text-maroon px-3 py-1 text-[11px] font-mono uppercase tracking-widest;
+    @apply inline-flex items-center gap-1.5 rounded-full bg-maroon/20 text-maroon px-3 py-1 text-[11px] font-mono uppercase tracking-widest font-bold;
   }
   .heading-detective {
     @apply font-display font-bold text-primary tracking-tight;
+  }
+  /* Improved contrast utility classes */
+  .text-meta {
+    color: rgba(31, 56, 100, 0.75); /* was ~0.6 */
+  }
+  .text-body-muted {
+    color: rgba(31, 56, 100, 0.85); /* was ~0.7 */
   }
 }
 

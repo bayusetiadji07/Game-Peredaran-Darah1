@@ -93,7 +93,7 @@ export default function PdfPreviewModal({ data, onDownload, onClose }) {
               <div className="font-display font-bold text-lg leading-tight">
                 Preview Laporan PDF
               </div>
-              <div className="text-cream/70 text-xs font-mono uppercase tracking-widest">
+              <div className="text-cream/85 text-xs font-mono uppercase tracking-widest">
                 {data.filename}
                 {status === "ready" && (
                   <span className="ml-2 text-teal-light">· {numPages} halaman</span>

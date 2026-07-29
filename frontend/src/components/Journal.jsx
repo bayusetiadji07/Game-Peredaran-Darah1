@@ -65,7 +65,7 @@ export default function Journal({ open, onClose }) {
                   <h2 className="font-display font-bold text-xl leading-tight tracking-tight">
                     {t("journal.title")}
                   </h2>
-                  <p className="text-cream/70 text-xs font-mono uppercase tracking-widest">
+                  <p className="text-cream/85 text-xs font-mono uppercase tracking-widest">
                     {state.journal.clues.length} {t("journal.count")}
                   </p>
                 </div>
@@ -142,7 +142,7 @@ function EmptyJournal({ t }) {
       <div className="text-center max-w-md bg-paper/95 rounded-lg p-8 shadow-paper border border-primary/10 relative">
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-maroon/70 rotate-[3deg] rounded-sm" />
         <h3 className="font-display text-2xl text-primary mb-2">{t("journal.empty.title")}</h3>
-        <p className="text-primary/70 font-body">
+        <p className="text-primary/85 font-body">
           {t("journal.empty.body")}
         </p>
       </div>
@@ -163,7 +163,7 @@ function ClueCard({ clue, rotate }) {
       <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-4 bg-maroon/60 rounded-sm rotate-[2deg] shadow-sm" />
       <h4 className="font-display font-bold text-primary text-lg leading-tight">{clue.title}</h4>
       <p className="text-primary/85 text-sm mt-1 font-body">{clue.description}</p>
-      <div className="mt-2 text-[10px] font-mono uppercase tracking-widest text-primary/60">
+      <div className="mt-2 text-[10px] font-mono uppercase tracking-widest text-primary/80">
         Scene {clue.unlockedInScene}
       </div>
     </motion.div>

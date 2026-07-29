@@ -460,7 +460,7 @@ export default function CloseUpDiagram({ hotspotId }) {
   return (
     <div className="rounded-lg bg-paper border-2 border-primary/15 p-3 shadow-paper" data-testid={`closeup-${hotspotId}`}>
       <div className="flex items-center justify-between mb-2">
-        <span className="font-mono uppercase text-[10px] tracking-widest text-primary/70">
+        <span className="font-mono uppercase text-[10px] tracking-widest text-primary/85">
           🔍 {title}
         </span>
         <span className="font-mono text-[10px] tracking-widest text-teal-dark">Interaktif</span>

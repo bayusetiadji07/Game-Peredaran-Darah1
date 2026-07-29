@@ -142,7 +142,7 @@ export default function Scene5Interrogation() {
               </div>
               <div className="mt-2 bg-paper/95 border border-primary/20 rounded-full px-4 py-1.5 shadow-card">
                 <span className="font-display font-semibold text-primary text-sm">{w.name}</span>
-                <span className="text-primary/60 text-xs ml-2 font-body">· {w.role.split(",")[0]}</span>
+                <span className="text-primary/80 text-xs ml-2 font-body">· {w.role.split(",")[0]}</span>
               </div>
             </button>
           );
@@ -157,7 +157,7 @@ export default function Scene5Interrogation() {
         <div className="bg-paper border-2 border-primary/15 rounded-full shadow-floating px-6 py-2.5 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 text-primary font-body text-sm">
             <MapPin size={14} className="text-maroon" />
-            <span className="font-mono text-xs uppercase tracking-widest text-primary/60">Saksi</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-primary/80">Saksi</span>
             {SCENE5_WITNESSES.map((w) => {
               const cleared = isWitnessCleared(w.id);
               return (
@@ -173,7 +173,7 @@ export default function Scene5Interrogation() {
             })}
           </div>
           {!allCleared ? (
-            <div className="text-primary/70 font-body text-sm flex items-center gap-1">
+            <div className="text-primary/85 font-body text-sm flex items-center gap-1">
               <AlertCircle size={14} /> Wawancarai semua saksi (di kedua lokasi) untuk membuka refleksi.
             </div>
           ) : !reflectionDone ? (
@@ -249,7 +249,7 @@ function LocationBtn({ active, onClick, icon, label, testid }) {
       onClick={onClick}
       data-testid={testid}
       className={`flex items-center gap-2 px-3 py-1.5 rounded-full font-body font-semibold text-sm transition ${
-        active ? "bg-primary text-cream shadow-card" : "text-primary/70 hover:bg-primary/10"
+        active ? "bg-primary text-cream shadow-card" : "text-primary/85 hover:bg-primary/10"
       }`}
     >
       {icon} {label}
@@ -292,8 +292,8 @@ function WitnessDialog({ witness, asked, onAsk, currentQA, onCloseAnswer, onClos
               className="h-40 md:h-52 w-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
             />
             <div className="mt-3 font-display font-bold text-xl">{witness.name}</div>
-            <div className="mt-1 text-cream/70 text-xs font-body text-center">{witness.role}</div>
-            <div className="mt-3 text-cream/60 font-mono text-[10px] uppercase tracking-widest">
+            <div className="mt-1 text-cream/85 text-xs font-body text-center">{witness.role}</div>
+            <div className="mt-3 text-cream/80 font-mono text-[10px] uppercase tracking-widest">
               {asked.size}/{witness.questions.length} pertanyaan
             </div>
           </div>
@@ -305,7 +305,7 @@ function WitnessDialog({ witness, asked, onAsk, currentQA, onCloseAnswer, onClos
                 <p className="font-body text-primary text-lg leading-relaxed">{`"${witness.intro}"`}</p>
 
                 <div className="mt-5 border-t border-primary/15 pt-4 flex-1">
-                  <div className="font-mono uppercase tracking-widest text-[10px] text-primary/60 mb-2 flex items-center gap-1">
+                  <div className="font-mono uppercase tracking-widest text-[10px] text-primary/80 mb-2 flex items-center gap-1">
                     <MessageCircleQuestion size={12} /> Pilih Pertanyaan
                   </div>
                   <div className="space-y-2">
@@ -417,7 +417,7 @@ function ReflectionModal({ chosen, answered, onChoose, onClose }) {
                       ? "border-teal bg-teal/15 text-teal-dark"
                       : selected
                       ? "border-maroon bg-maroon/10 text-maroon"
-                      : "border-primary/15 bg-paper text-primary/70"
+                      : "border-primary/15 bg-paper text-primary/85"
                     : "border-primary/20 bg-paper text-primary hover:border-mustard hover:bg-mustard/5"
                 }`}
               >

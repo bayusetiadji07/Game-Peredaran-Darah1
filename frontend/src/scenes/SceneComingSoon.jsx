@@ -15,7 +15,7 @@ export default function SceneComingSoon({ number }) {
           </div>
           <div className="tag-concept mb-3 mx-auto">Scene {number} · Segera Hadir</div>
           <h2 className="font-display font-bold text-primary text-3xl">Investigasi Selanjutnya Sedang Disiapkan</h2>
-          <p className="mt-3 text-primary/70 font-body">
+          <p className="mt-3 text-primary/85 font-body">
             Scene 4–7 (Ruang Organ, Interogasi Saksi, Ruang Kesimpulan, Epilog) akan dibangun di iterasi berikutnya.
             Terima kasih atas kesabaranmu, Detektif!
           </p>

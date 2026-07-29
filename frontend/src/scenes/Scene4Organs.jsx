@@ -148,8 +148,8 @@ export default function Scene4Organs() {
         {/* Diagram panel */}
         <div className="relative rounded-2xl bg-cream/95 shadow-floating border border-primary/10 p-4 overflow-hidden">
           <div className="flex items-center gap-2 mb-2">
-            <Route size={14} className="text-primary/60" />
-            <span className="font-mono uppercase tracking-widest text-[10px] text-primary/60">
+            <Route size={14} className="text-primary/80" />
+            <span className="font-mono uppercase tracking-widest text-[10px] text-primary/80">
               Diagram Interaktif · Klik Organ
             </span>
           </div>
@@ -291,7 +291,7 @@ function PathSequencer({ testid, path, order, setOrder, submitted, correct, onSu
           <div className="font-display font-bold text-primary text-lg leading-tight">
             {path.label}
           </div>
-          <div className="text-primary/70 text-sm font-body">{path.desc}</div>
+          <div className="text-primary/85 text-sm font-body">{path.desc}</div>
         </div>
         {isFinal && (
           <span className="grid place-items-center h-8 w-8 rounded-full bg-teal text-cream shadow-card">
@@ -304,7 +304,7 @@ function PathSequencer({ testid, path, order, setOrder, submitted, correct, onSu
         <span className="px-3 py-1.5 rounded-full bg-primary text-cream font-mono uppercase text-[11px] tracking-widest">
           {path.fixedStart}
         </span>
-        <span className="text-primary/40">→</span>
+        <span className="text-primary/80">→</span>
         <Reorder.Group
           axis="x"
           values={order}
@@ -330,7 +330,7 @@ function PathSequencer({ testid, path, order, setOrder, submitted, correct, onSu
             </Reorder.Item>
           ))}
         </Reorder.Group>
-        <span className="text-primary/40">→</span>
+        <span className="text-primary/80">→</span>
         <span className="px-3 py-1.5 rounded-full bg-primary text-cream font-mono uppercase text-[11px] tracking-widest">
           {path.fixedEnd}
         </span>
@@ -453,7 +453,7 @@ function ArgumentModal({ chosen, answered, onChoose, onClose }) {
                       ? "border-teal bg-teal/15 text-teal-dark"
                       : selected
                       ? "border-maroon bg-maroon/10 text-maroon"
-                      : "border-primary/15 bg-paper text-primary/70"
+                      : "border-primary/15 bg-paper text-primary/85"
                     : "border-primary/20 bg-paper text-primary hover:border-maroon hover:bg-maroon/5"
                 }`}
               >
@@ -531,7 +531,7 @@ function BloodParticles({ mode }) {
           }}
         />
       ))}
-      <div className="absolute bottom-2 right-3 text-[10px] font-mono uppercase tracking-widest text-primary/70 bg-cream/70 px-2 py-0.5 rounded">
+      <div className="absolute bottom-2 right-3 text-[10px] font-mono uppercase tracking-widest text-primary/85 bg-cream/70 px-2 py-0.5 rounded">
         {isRani ? "Sel darah merah lebih sedikit & pucat" : "Sel darah merah normal"}
       </div>
     </div>

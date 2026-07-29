@@ -106,31 +106,92 @@ export const SCENE2_HOTSPOTS = [
   },
 ];
 
-export const SCENE2_QUIZ = {
-  id: "q-jantung-berdetak-cepat",
-  question: "Mengapa jantung Rani berdenyut lebih cepat meski ia hanya berdiri?",
-  choices: [
-    {
-      id: "a",
-      text: "Karena Rani takut diperiksa detektif.",
-      correct: false,
-      feedback: "Kurang tepat. Coba hubungkan dengan fungsi darah dalam mengangkut oksigen.",
-    },
-    {
-      id: "b",
-      text: "Karena darahnya kekurangan sel pembawa oksigen, jantung harus memompa lebih sering untuk memenuhi kebutuhan tubuh.",
-      correct: true,
-      feedback: "Tepat! Ini disebut mekanisme kompensasi jantung — bekerja lebih cepat saat oksigen yang diedarkan kurang.",
-    },
-    {
-      id: "c",
-      text: "Karena jantungnya rusak permanen.",
-      correct: false,
-      feedback:
-        "Belum tentu. Jantung Rani sehat, tetapi bekerja ekstra karena darahnya kurang membawa oksigen.",
-    },
-  ],
-};
+export const SCENE2_QUIZZES = [
+  {
+    id: "q-jantung-berdetak-cepat",
+    question: "Mengapa jantung Rani berdenyut lebih cepat meski ia hanya berdiri?",
+    choices: [
+      {
+        id: "a",
+        text: "Karena Rani takut diperiksa detektif.",
+        correct: false,
+        feedback: "Kurang tepat. Coba hubungkan dengan fungsi darah dalam mengangkut oksigen.",
+      },
+      {
+        id: "b",
+        text: "Karena darahnya kekurangan sel pembawa oksigen, jantung harus memompa lebih sering untuk memenuhi kebutuhan tubuh.",
+        correct: true,
+        feedback: "Tepat! Ini disebut mekanisme kompensasi jantung — bekerja lebih cepat saat oksigen yang diedarkan kurang.",
+      },
+      {
+        id: "c",
+        text: "Karena jantungnya rusak permanen.",
+        correct: false,
+        feedback:
+          "Belum tentu. Jantung Rani sehat, tetapi bekerja ekstra karena darahnya kurang membawa oksigen.",
+      },
+    ],
+  },
+  {
+    id: "q-konjungtiva-pucat",
+    question:
+      "Konjungtiva (bagian dalam kelopak mata) Rani tampak pucat. Apa penyebab paling mungkin?",
+    choices: [
+      {
+        id: "a",
+        text: "Rani baru bangun tidur, jadi wajar terlihat pucat.",
+        correct: false,
+        feedback:
+          "Kurang tepat. Kepucatan konjungtiva bertahan lebih lama daripada efek bangun tidur biasa.",
+      },
+      {
+        id: "b",
+        text: "Kadar hemoglobin dalam darah Rani rendah, sehingga warna merah muda alaminya berkurang.",
+        correct: true,
+        feedback:
+          "Tepat! Konjungtiva merah muda berasal dari darah kaya hemoglobin. Ketika hemoglobin rendah, warna khas itu meredup dan tampak pucat.",
+      },
+      {
+        id: "c",
+        text: "Rani mengenakan makeup yang menutupi warna asli mata.",
+        correct: false,
+        feedback:
+          "Belum tepat. Yang diperiksa adalah bagian dalam kelopak mata (konjungtiva), bukan bagian luar yang bisa ditutupi kosmetik.",
+      },
+    ],
+  },
+  {
+    id: "q-koilonychia",
+    question:
+      "Kuku Rani mulai berbentuk cekung seperti sendok (koilonychia). Apa maknanya secara medis?",
+    choices: [
+      {
+        id: "a",
+        text: "Rani sering menggigit kuku, sehingga bentuknya berubah.",
+        correct: false,
+        feedback:
+          "Kurang tepat. Menggigit kuku umumnya membuat kuku pendek/tidak rata, bukan berbentuk cekung sendok.",
+      },
+      {
+        id: "b",
+        text: "Kuku hanya butuh diberi vitamin dari salon.",
+        correct: false,
+        feedback:
+          "Belum tepat. Bentuk koilonychia adalah tanda tubuh — bukan sekadar masalah perawatan luar.",
+      },
+      {
+        id: "c",
+        text: "Ini pertanda kekurangan zat besi dalam jangka waktu lama — bahan baku hemoglobin.",
+        correct: true,
+        feedback:
+          "Tepat! Koilonychia klasik terjadi karena defisiensi zat besi kronis. Zat besi diperlukan tubuh untuk memproduksi hemoglobin yang cukup.",
+      },
+    ],
+  },
+];
+
+// Backward-compat: expose the first quiz as SCENE2_QUIZ (was used in tests).
+export const SCENE2_QUIZ = SCENE2_QUIZZES[0];
 
 // Scene 3 — Lab items to sort into Normal or Rendah
 export const SCENE3_LAB_ITEMS = [

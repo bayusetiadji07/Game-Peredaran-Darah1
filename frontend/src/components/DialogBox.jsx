@@ -88,14 +88,14 @@ export default function DialogBox({ lines, onComplete }) {
           {displayed}
           {!done && <span className="inline-block w-[8px] h-[1.1em] align-middle bg-primary/70 ml-0.5 animate-blink" />}
         </p>
-        <div className="absolute bottom-3 right-4 flex items-center gap-1 text-primary/60 font-mono text-xs">
+        <div className="absolute bottom-3 right-4 flex items-center gap-1 text-primary/80 font-mono text-xs">
           <span>{done ? (current.isFinal || index === lines.length - 1 ? t("dialog.mulai") : t("dialog.lanjut")) : t("dialog.skip")}</span>
           <ChevronRight
             size={16}
             className="animate-float-y group-hover:translate-x-1 transition"
           />
         </div>
-        <div className="absolute bottom-3 left-4 font-mono text-[10px] tracking-widest uppercase text-primary/50">
+        <div className="absolute bottom-3 left-4 font-mono text-[10px] tracking-widest uppercase text-primary/85">
           {index + 1} / {lines.length}
         </div>
       </motion.button>

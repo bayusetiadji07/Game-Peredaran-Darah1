@@ -104,12 +104,12 @@ export default function Scene6Conclusion() {
 
       {/* Progress */}
       <div className="absolute right-6 top-24 md:top-28 z-20 bg-paper/95 backdrop-blur rounded-xl px-4 py-3 shadow-card border border-primary/10">
-        <div className="font-mono uppercase text-[10px] tracking-widest text-primary/60">
+        <div className="font-mono uppercase text-[10px] tracking-widest text-primary/80">
           Kartu Ditempel
         </div>
         <div className="font-display font-bold text-2xl text-maroon leading-none">
           {placedCount}
-          <span className="text-primary/40 text-lg">/{clues.length}</span>
+          <span className="text-primary/80 text-lg">/{clues.length}</span>
         </div>
       </div>
 
@@ -145,13 +145,13 @@ export default function Scene6Conclusion() {
                     <div className="font-display font-bold text-primary text-sm leading-tight">
                       {col.label}
                     </div>
-                    <div className="text-primary/60 text-[11px] font-body mt-0.5">
+                    <div className="text-primary/80 text-[11px] font-body mt-0.5">
                       {col.subtitle}
                     </div>
                   </div>
                   <div className="p-2 space-y-2 overflow-y-auto max-h-[calc(100%-52px)]">
                     {placedInCol.length === 0 && (
-                      <div className="text-primary/40 italic text-xs font-body text-center py-4">
+                      <div className="text-primary/80 italic text-xs font-body text-center py-4">
                         Seret kartu ke sini
                       </div>
                     )}
@@ -183,14 +183,14 @@ export default function Scene6Conclusion() {
           <div className="rounded-xl bg-paper/95 shadow-paper border border-primary/15 flex flex-col overflow-hidden">
             <div className="p-3 border-b border-primary/10 flex items-center gap-2">
               <Sparkles size={14} className="text-mustard" />
-              <div className="font-mono uppercase text-[10px] tracking-widest text-primary/70">
+              <div className="font-mono uppercase text-[10px] tracking-widest text-primary/85">
                 Kartu Dari Jurnal
               </div>
-              <span className="ml-auto text-primary/60 font-mono text-xs">{unplacedClues.length}</span>
+              <span className="ml-auto text-primary/80 font-mono text-xs">{unplacedClues.length}</span>
             </div>
             <div className="flex-1 overflow-y-auto p-2 space-y-2">
               {clues.length === 0 && (
-                <div className="text-primary/60 text-sm font-body text-center py-6">
+                <div className="text-primary/80 text-sm font-body text-center py-6">
                   Belum ada petunjuk terkumpul. Kembali dan mainkan Scene 2–5.
                 </div>
               )}
@@ -224,7 +224,7 @@ export default function Scene6Conclusion() {
             </div>
           ) : !submitted ? (
             <>
-              <div className="text-primary/70 font-body text-sm">
+              <div className="text-primary/85 font-body text-sm">
                 {canSubmit
                   ? "Semua kartu ditempel & rekomendasi dipilih. Kirim laporan?"
                   : `Tempel semua ${clues.length} kartu & pilih min. 3 rekomendasi.`}
@@ -285,7 +285,7 @@ function TrayClue({ clue }) {
       <div className="font-display font-semibold text-primary text-sm leading-tight">
         {clue.title}
       </div>
-      <div className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mt-0.5">
+      <div className="text-[10px] font-mono uppercase tracking-widest text-primary/85 mt-0.5">
         Scene {clue.unlockedInScene}
       </div>
     </div>
@@ -334,7 +334,7 @@ function RecForm({ recommendations, toggleRec, submitted }) {
       <div className="flex items-center gap-2 mb-2">
         <PencilLine size={14} className="text-mustard" />
         <div className="font-display font-bold text-primary">Laporan Rekomendasi</div>
-        <span className="text-primary/60 font-mono text-xs uppercase tracking-widest ml-1">
+        <span className="text-primary/80 font-mono text-xs uppercase tracking-widest ml-1">
           Pilih min. 3 · terpilih: {recommendations.size}
         </span>
       </div>
@@ -407,10 +407,10 @@ function FeedbackModal({ totalClues, correct, ideal, nonIdeal, onClose }) {
           </div>
           <div className="flex justify-between">
             <span>Rekomendasi kurang tepat</span>
-            <span className={`font-mono ${nonIdeal > 0 ? "text-maroon" : "text-primary/50"}`}>{nonIdeal}</span>
+            <span className={`font-mono ${nonIdeal > 0 ? "text-maroon" : "text-primary/85"}`}>{nonIdeal}</span>
           </div>
         </div>
-        <p className="mt-4 text-primary/70 text-sm font-body">
+        <p className="mt-4 text-primary/85 text-sm font-body">
           Papan buktimu tersimpan. Buka jurnal kapan pun untuk meninjau ulang, lalu lanjut ke Epilog untuk melihat hasil akhir & mencetak laporan.
         </p>
         <div className="mt-5 flex justify-end">

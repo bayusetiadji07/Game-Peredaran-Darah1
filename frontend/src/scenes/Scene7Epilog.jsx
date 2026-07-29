@@ -274,7 +274,7 @@ export default function Scene7Epilog() {
       {/* Bottom Bar */}
       <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center px-6">
         <div className="bg-paper border-2 border-primary/15 rounded-full shadow-floating px-5 py-2.5 flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5 pr-3 border-r border-primary/15 font-mono text-xs uppercase tracking-widest text-primary/70">
+          <div className="flex items-center gap-1.5 pr-3 border-r border-primary/15 font-mono text-xs uppercase tracking-widest text-primary/85">
             <Clock size={13} /> {formatTime(state.playTimeSeconds)}
           </div>
           <button
@@ -395,7 +395,7 @@ function StatBox({ label, value, testid }) {
       className="rounded-lg bg-paper border border-primary/15 py-2 px-2 text-center"
       data-testid={testid}
     >
-      <div className="font-mono uppercase text-[9px] tracking-widest text-primary/60">{label}</div>
+      <div className="font-mono uppercase text-[9px] tracking-widest text-primary/80">{label}</div>
       <div className="font-display font-bold text-primary text-lg leading-none mt-0.5">{value}</div>
     </div>
   );
@@ -411,14 +411,14 @@ function ReflectionSection({ quiz, answers, onAnswer, correctCount, answerCount,
         <div>
           <div className="tag-ssi">Refleksi Akhir</div>
           <h3 className="font-display font-bold text-primary text-2xl mt-1">Kuis 5 Soal</h3>
-          <div className="font-body text-primary/70 text-sm">
+          <div className="font-body text-primary/85 text-sm">
             Uji pemahaman konsep IPA dan pemikiran SSI-mu.
           </div>
         </div>
         <div className="text-right">
-          <div className="font-mono uppercase text-[10px] tracking-widest text-primary/60">Terjawab</div>
+          <div className="font-mono uppercase text-[10px] tracking-widest text-primary/80">Terjawab</div>
           <div className="font-display font-bold text-primary text-2xl leading-none">
-            {answerCount}<span className="text-primary/40 text-base">/{quiz.length}</span>
+            {answerCount}<span className="text-primary/80 text-base">/{quiz.length}</span>
           </div>
         </div>
       </div>
@@ -449,7 +449,7 @@ function ReflectionSection({ quiz, answers, onAnswer, correctCount, answerCount,
                             ? "border-teal bg-teal/15 text-teal-dark"
                             : selected
                             ? "border-maroon bg-maroon/10 text-maroon"
-                            : "border-primary/15 text-primary/60"
+                            : "border-primary/15 text-primary/80"
                           : "border-primary/20 bg-cream text-primary hover:border-maroon"
                       }`}
                     >
@@ -476,7 +476,7 @@ function ReflectionSection({ quiz, answers, onAnswer, correctCount, answerCount,
             <b>{correctCount}/{quiz.length}</b> jawaban benar · +{correctCount * 3} poin refleksi
           </div>
         ) : (
-          <div className="text-primary/60 font-mono text-sm">Selesaikan semua soal untuk memvalidasi ending-mu.</div>
+          <div className="text-primary/80 font-mono text-sm">Selesaikan semua soal untuk memvalidasi ending-mu.</div>
         )}
       </div>
     </div>

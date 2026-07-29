@@ -108,7 +108,7 @@ export default function Scene0SplashMenu() {
                   onClick={() => {
                     if (window.confirm(t("menu.keluar") + "?")) window.close();
                   }}
-                  className="btn-ghost self-start !text-primary/60"
+                  className="btn-ghost self-start !text-primary/80"
                 >
                   <LogOut size={16} /> {t("menu.keluar")}
                 </button>
@@ -124,10 +124,10 @@ export default function Scene0SplashMenu() {
                 className="mt-2 max-w-lg"
               >
                 <h3 className="heading-detective text-2xl mb-2">{t("avatar.title")}</h3>
-                <p className="text-primary/70 mb-4 font-body">
+                <p className="text-primary/85 mb-4 font-body">
                   {t("avatar.subtitle")}
                 </p>
-                <label className="block font-mono uppercase tracking-widest text-xs text-primary/70 mb-1">
+                <label className="block font-mono uppercase tracking-widest text-xs text-primary/85 mb-1">
                   {t("avatar.namaLabel")}
                 </label>
                 <input
@@ -136,10 +136,10 @@ export default function Scene0SplashMenu() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t("avatar.namaPlaceholder")}
                   maxLength={30}
-                  className="w-full bg-paper border-2 border-primary/30 focus:border-maroon outline-none rounded-lg px-4 py-3 font-body text-primary text-lg placeholder:text-primary/40"
+                  className="w-full bg-paper border-2 border-primary/30 focus:border-maroon outline-none rounded-lg px-4 py-3 font-body text-primary text-lg placeholder:text-primary/80"
                 />
                 <div className="mt-5">
-                  <div className="font-mono uppercase tracking-widest text-xs text-primary/70 mb-2">
+                  <div className="font-mono uppercase tracking-widest text-xs text-primary/85 mb-2">
                     {t("avatar.pilihAvatar")}
                   </div>
                   <div className="grid grid-cols-4 gap-3">
@@ -208,7 +208,7 @@ export default function Scene0SplashMenu() {
                 darah, hemoglobin, dan bagaimana faktor sosial (pola makan, gender, akses gizi) memengaruhi
                 kesehatan remaja putri.
               </p>
-              <p className="text-primary/70 font-body mt-3 text-sm">
+              <p className="text-primary/85 font-body mt-3 text-sm">
                 Disusun oleh Bayu Setiadji, S.Pd., Gr. — SMP Negeri 3 Besuki, Situbondo.
               </p>
             </InfoPanel>}
@@ -238,7 +238,7 @@ export default function Scene0SplashMenu() {
               strokeWidth={0}
             />
           </motion.div>
-          <div className="absolute bottom-6 right-6 font-mono text-xs uppercase tracking-widest text-primary/60 flex items-center gap-2" data-testid="preload-status">
+          <div className="absolute bottom-6 right-6 font-mono text-xs uppercase tracking-widest text-primary/80 flex items-center gap-2" data-testid="preload-status">
             {!preloadDone ? (
               <>
                 <Loader2 size={12} className="animate-spin" />
