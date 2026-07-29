@@ -7,6 +7,8 @@ import Scene2Symptoms from "./scenes/Scene2Symptoms";
 import Scene3Lab from "./scenes/Scene3Lab";
 import Scene4Organs from "./scenes/Scene4Organs";
 import Scene5Interrogation from "./scenes/Scene5Interrogation";
+import Scene6Conclusion from "./scenes/Scene6Conclusion";
+import Scene7Epilog from "./scenes/Scene7Epilog";
 import SceneComingSoon from "./scenes/SceneComingSoon";
 import AudioManager from "./components/AudioManager";
 import "./App.css";
@@ -29,6 +31,10 @@ function SceneRouter() {
         return <Scene4Organs key="s4" />;
       case 5:
         return <Scene5Interrogation key="s5" />;
+      case 6:
+        return <Scene6Conclusion key="s6" />;
+      case 7:
+        return <Scene7Epilog key="s7" />;
       default:
         return <SceneComingSoon key={`sc${scene}`} number={scene} />;
     }

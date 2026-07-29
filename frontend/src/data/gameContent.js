@@ -544,3 +544,136 @@ export const CATEGORY_COLOR = {
   medis: "teal",
   gayaHidup: "mustard",
 };
+
+// ============================================================
+// SCENE 6 — RUANG KESIMPULAN (Cork Board Reasoning)
+// ============================================================
+
+// Column mapping — clues placed in the *correct* column earn points.
+// Column determined by `unlockedInScene` on each clue.
+export const SCENE6_COLUMNS = [
+  {
+    id: "gejala",
+    label: "1. Gejala Klinis",
+    subtitle: "Apa yang tampak pada tubuh Rani?",
+    color: "maroon",
+    matchScene: 2,
+  },
+  {
+    id: "data-lab",
+    label: "2. Data Laboratorium",
+    subtitle: "Apa kata hasil pemeriksaan darah?",
+    color: "teal",
+    matchScene: 3,
+  },
+  {
+    id: "mekanisme",
+    label: "3. Mekanisme Organ",
+    subtitle: "Bagaimana peredaran darah bereaksi?",
+    color: "primary",
+    matchScene: 4,
+  },
+  {
+    id: "penyebab",
+    label: "4. Penyebab Gaya Hidup",
+    subtitle: "Faktor sosial & pola apa yang memicu?",
+    color: "mustard",
+    matchScene: 5,
+  },
+];
+
+export const SCENE6_RECOMMENDATIONS = [
+  {
+    id: "rec-ttd",
+    text: "Rani mengonsumsi Tablet Tambah Darah (TTD) rutin sesuai anjuran, meski awalnya kurang nyaman.",
+    ideal: true,
+  },
+  {
+    id: "rec-pola-makan",
+    text: "Keluarga memperbaiki pola makan agar setiap anggota mendapat porsi protein hewani & sayur hijau setara — tidak dibedakan berbasis gender.",
+    ideal: true,
+  },
+  {
+    id: "rec-edukasi-menstruasi",
+    text: "Sekolah & orang tua mengedukasi Rani tentang gizi selama menstruasi dan pentingnya deteksi dini anemia.",
+    ideal: true,
+  },
+  {
+    id: "rec-kantin-sehat",
+    text: "Sekolah menyediakan menu kantin bergizi terjangkau (nasi + telur/ikan + sayur) sebagai alternatif jajanan.",
+    ideal: true,
+  },
+  {
+    id: "rec-diet-ketat",
+    text: "Rani menjalani diet rendah kalori agar tampak lebih segar.",
+    ideal: false,
+  },
+  {
+    id: "rec-obat-keras",
+    text: "Rani langsung diberi transfusi darah rutin agar cepat sembuh.",
+    ideal: false,
+  },
+];
+
+// ============================================================
+// SCENE 7 — EPILOG & REFLEKSI
+// ============================================================
+
+export const SCENE7_QUIZ = [
+  {
+    id: "refl-q1",
+    question: "Apa fungsi utama hemoglobin dalam sel darah merah?",
+    choices: [
+      { id: "a", text: "Menyerang bakteri asing.", correct: false },
+      { id: "b", text: "Mengikat dan mengangkut oksigen ke seluruh tubuh.", correct: true },
+      { id: "c", text: "Membekukan darah saat terluka.", correct: false },
+    ],
+  },
+  {
+    id: "refl-q2",
+    question:
+      "Peredaran darah kecil (pulmonal) menempuh jalur:",
+    choices: [
+      { id: "a", text: "Jantung → seluruh tubuh → jantung.", correct: false },
+      { id: "b", text: "Jantung → paru-paru → jantung.", correct: true },
+      { id: "c", text: "Paru-paru → hati → paru-paru.", correct: false },
+    ],
+  },
+  {
+    id: "refl-q3",
+    question:
+      "Kadar Hb Rani = 9 g/dL (normal remaja putri 12–15 g/dL). Interpretasi paling tepat:",
+    choices: [
+      { id: "a", text: "Normal, tidak ada masalah.", correct: false },
+      { id: "b", text: "Anemia — perlu tindak lanjut medis & perbaikan gizi.", correct: true },
+      { id: "c", text: "Kelebihan zat besi.", correct: false },
+    ],
+  },
+  {
+    id: "refl-q4",
+    question:
+      "Faktor sosial-budaya yang paling relevan menyebabkan anemia pada remaja putri di Indonesia:",
+    choices: [
+      { id: "a", text: "Kurangnya jam olahraga di sekolah.", correct: false },
+      { id: "b", text: "Pola pembagian makanan tidak setara dalam keluarga + literasi menstruasi rendah.", correct: true },
+      { id: "c", text: "Terlalu banyak minum air putih.", correct: false },
+    ],
+  },
+  {
+    id: "refl-q5",
+    question:
+      "Kebijakan sekolah yang paling tepat untuk mencegah anemia pada siswi:",
+    choices: [
+      { id: "a", text: "Menghapus jam pelajaran olahraga.", correct: false },
+      {
+        id: "b",
+        text: "Program TTD mingguan + edukasi gizi seimbang + kantin sehat bergizi terjangkau.",
+        correct: true,
+      },
+      { id: "c", text: "Melarang siswi keluar kelas saat menstruasi.", correct: false },
+    ],
+  },
+];
+
+export const ENDING_THRESHOLD = 55; // total score >= 55 => Detektif Utama
+

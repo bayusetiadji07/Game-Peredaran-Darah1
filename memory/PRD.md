@@ -38,14 +38,15 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
 
-## Implemented (Session #2 — 29 Jul 2026)
-- ✅ **Scene 4 — Ruang Organ**: diagram interaktif peredaran darah dengan 4 hotspot organ (jantung/paru/arteri/vena) → modal info organ. Dua sequencer drag-reorder untuk Peredaran Kecil (Pulmonal) & Besar (Sistemik) dengan validasi urutan. Toggle "Darah Normal ↔ Darah Rani" mengubah kepadatan partikel sel darah. Pertanyaan argumentasi akhir (multiple-choice beralasan) → clue "Kompensasi Jantung" masuk ke Jurnal
-- ✅ **Scene 5 — Interogasi Saksi**: 3 saksi (Ibu Rani, Rani, Sinta teman sebangku) tersebar di 2 lokasi (Rumah Rani + Kantin Sekolah) dengan location switcher. Dialog wawancara branching: pemain pilih 3 pertanyaan per saksi → dapat jawaban naratif + clue kategori Gaya Hidup. Total 9 clue SSI baru (pola makan, menstruasi, TTD, mitos, akses gizi). Pertanyaan refleksi gender akhir → skor refleksi
+## Implemented (Session #3 — 29 Jul 2026 — MVP LENGKAP 8 SCENE ✅)
+- ✅ **Scene 6 — Ruang Kesimpulan**: Cork-board sebab-akibat 4 kolom (Gejala → Data Lab → Mekanisme Organ → Penyebab Gaya Hidup) dengan drag-and-drop HTML5 dari tray kartu Jurnal. Kolom otomatis berdasarkan `unlockedInScene`. Skor +5 per penempatan benar. Form Laporan Rekomendasi (6 pilihan, min 3, 4 ideal + 2 keliru). Feedback modal dengan akurasi persen setelah kirim laporan. Tombol lepaskan kartu dari kolom.
+- ✅ **Scene 7 — Epilog & Refleksi**: Ending bercabang berdasarkan `state.score.total` (ambang batas = 55) → "Detektif Utama" (Trophy, warna teal) atau "Detektif Pemula" (Award, warna mustard). Ilustrasi Rani sehat dengan badge "Beberapa Minggu Kemudian". Kuis refleksi 5 soal mixing konsep IPA + SSI (fungsi Hb, alur pulmonal, interpretasi Hb rendah, faktor sosial anemia remaja putri, kebijakan sekolah). Jawaban benar +3 poin, feedback langsung. Tombol Cetak (window.print) + Unduh PDF (jsPDF native, tanpa server) + Main Lagi.
+- ✅ Export PDF terstruktur: header identitas siswa, ringkasan bukti dikelompokkan per kategori, kesimpulan diagnosis & rekomendasi standar. Nama file `laporan-detektif-{nama_siswa}.pdf`
+- ✅ Verifikasi visual seluruh flow: Scene 6 cork board + tray, Scene 7 dua varian ending (Elite & Pemula), quiz answering dengan skor auto-update, PDF trigger sukses tanpa error.
 
 ## Prioritized Backlog
 ### P0 — Iterasi Berikutnya (untuk sesi selanjutnya)
-- Scene 6 — Ruang Kesimpulan: cork board interaktif, drag clue card, benang merah untuk sebab-akibat, formulir rekomendasi
-- Scene 7 — Epilog & Refleksi: ending bercabang berdasar skor, kuis refleksi 3–5 soal, export ringkasan PDF (jsPDF)
+_Semua 8 scene sudah selesai. Backlog di bawah bersifat opsional peningkatan._
 
 ### P1 — Enhancement
 - Timer play-time tracker (currently placeholder)
