@@ -38,6 +38,16 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
 
+## Implemented (Session #5 — 29 Jul 2026 — POLISH v2)
+- ✅ **Asset Preloader** (`/utils/assetPreloader.js`): Preload 19 gambar (background + karakter + ilustrasi + ikon) dan 2 audio (musik latar + SFX klik) saat Scene 0 mount. Progress indicator di kanan bawah splash: `Memuat aset · 42%` → `Semua aset siap · v1.0`. Timeout 10s untuk audio agar CDN lambat tidak block. Cache in-memory (`Map`) untuk menghindari re-fetch.
+- ✅ **PDF Preview via pdfjs-dist** (`/components/PdfPreviewModal.jsx`): Modal preview kini menggunakan `pdfjs-dist@4.7.76` untuk merender setiap halaman PDF sebagai `<canvas>` dengan DPI 1.5× device pixel ratio. Bekerja di **semua browser** tanpa bergantung pada PDF viewer bawaan. Header modal punya tombol "Tab Baru" + "Unduh Sekarang", loading spinner saat rendering, error fallback jika PDF gagal parsing. Worker file di-copy ke `/public/pdf.worker.min.mjs`.
+- ✅ **Close-up Diagram Scene 2** (`/components/CloseUpDiagram.jsx`): 4 SVG edukatif interaktif untuk setiap hotspot:
+  1. **Konjungtiva**: 2 mata side-by-side (Normal merah muda vs Rani pucat) dengan label
+  2. **Koilonychia**: 2 jari + kuku (Normal cembung vs Rani cekung seperti sendok)
+  3. **Denyut Nadi**: 2 waveform ECG animasi (72 bpm normal vs 110 bpm Rani) + legenda takikardia kompensasi
+  4. **Jantung Berdebar**: 2 heart shape animasi (durasi pulse 0.85s vs 0.55s) + pulse ring efek pada versi Rani
+  Modal clue detail diperbesar (max-w-md → max-w-2xl) dengan layout 2-kolom (deskripsi + diagram)
+
 ## Implemented (Session #4 — 29 Jul 2026 — POLISH)
 - ✅ **Timer play-time akurat**: Tick 1s tepat via `setInterval` di `GameContext`. Auto-pause saat `document.visibilityState !== "visible"` (tab tidak aktif), auto-resume saat kembali. Persist ke `localStorage`. Ditampilkan di HUD (kanan atas, badge kecil dengan ikon jam) selama gameplay dan sebagai stat card di Scene 7 (format MM:SS).
 - ✅ **PDF Preview Modal**: Tombol baru `Preview PDF` di Scene 7 → membuka modal 92vh dengan iframe `blob:` URL. Header berisi filename + tombol "Unduh Sekarang" + close. Fallback message tersedia untuk browser tanpa PDF viewer bawaan (contoh WebKit headless) → link "buka di tab baru". `buildPdf()` di-refactor jadi fungsi murni yang dipakai bersama oleh Preview dan Download.
@@ -58,9 +68,11 @@ _Semua 8 scene sudah selesai. Backlog di bawah bersifat opsional peningkatan._
 
 ### P1 — Enhancement
 - ~~Timer play-time tracker~~ ✅ done in Session #4
-- Preload gambar & audio agar tidak ada flicker
-- Tooltip yang lebih rich untuk hotspot (dengan gambar close-up)
+- ~~Preload gambar & audio agar tidak ada flicker~~ ✅ done in Session #5
+- ~~Tooltip yang lebih rich untuk hotspot~~ ✅ done in Session #5 (SVG close-up diagrams)
+- ~~PDF preview modal (fix)~~ ✅ done in Session #5 (pdfjs-dist renderer)
 - Panel guru untuk melihat progres semua siswa (butuh backend + akun)
+- Cetak papan cork board Scene 6 sebagai bagian PDF
 
 ### P2 — Nice-to-have
 - Multibahasa (Bahasa Jawa/Sunda opsional)

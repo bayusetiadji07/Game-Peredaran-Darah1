@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check } from "lucide-react";
+import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check, Loader2 } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { AVATARS } from "../data/gameContent";
 import { playClick } from "../components/AudioManager";
+import { preloadAssets, PRELOAD_TOTAL } from "../utils/assetPreloader";
 
 export default function Scene0SplashMenu() {
   const { state, setPlayer, goToScene } = useGame();
   const [mode, setMode] = useState("menu"); // menu | avatar | help | about
   const [name, setName] = useState(state.player.name || "");
   const [avatarId, setAvatarId] = useState(state.player.avatarId);
+  const [preloadDone, setPreloadDone] = useState(false);
+  const [preloadCount, setPreloadCount] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    preloadAssets({
+      onProgress: (loaded) => {
+        if (!cancelled) setPreloadCount(loaded);
+      },
+    }).then(() => {
+      if (!cancelled) setPreloadDone(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const preloadPct = Math.min(100, Math.round((preloadCount / PRELOAD_TOTAL) * 100));
 
   return (
     <div className="relative w-full h-full parchment-bg overflow-hidden">
@@ -218,8 +237,18 @@ export default function Scene0SplashMenu() {
               strokeWidth={0}
             />
           </motion.div>
-          <div className="absolute bottom-6 right-6 font-mono text-xs uppercase tracking-widest text-primary/60">
-            v1.0 · Prototipe Scene 0–3
+          <div className="absolute bottom-6 right-6 font-mono text-xs uppercase tracking-widest text-primary/60 flex items-center gap-2" data-testid="preload-status">
+            {!preloadDone ? (
+              <>
+                <Loader2 size={12} className="animate-spin" />
+                <span>Memuat aset · {preloadPct}%</span>
+              </>
+            ) : (
+              <>
+                <Check size={12} className="text-teal-dark" />
+                <span>Semua aset siap · v1.0</span>
+              </>
+            )}
           </div>
         </div>
       </div>

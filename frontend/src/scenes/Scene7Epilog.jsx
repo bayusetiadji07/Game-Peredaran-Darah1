@@ -14,6 +14,7 @@ import {
   Clock,
 } from "lucide-react";
 import SceneShell from "../components/SceneShell";
+import PdfPreviewModal from "../components/PdfPreviewModal";
 import { SCENE7_QUIZ, ENDING_THRESHOLD, CATEGORY_LABEL } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
@@ -397,86 +398,8 @@ function StatBox({ label, value, testid }) {
   );
 }
 
-function PdfPreviewModal({ data, onDownload, onClose }) {
-  return (
-    <motion.div
-      className="fixed inset-0 z-[70] bg-black/80 grid place-items-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      data-testid="pdf-preview-overlay"
-    >
-      <motion.div
-        initial={{ y: 30, opacity: 0, scale: 0.96 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-cream w-full max-w-5xl h-[92vh] rounded-2xl shadow-floating border-2 border-primary/20 flex flex-col overflow-hidden"
-        data-testid="pdf-preview-modal"
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between bg-primary text-cream px-5 py-3 border-b-2 border-primary-900">
-          <div className="flex items-center gap-3">
-            <Eye size={20} />
-            <div>
-              <div className="font-display font-bold text-lg leading-tight">Preview Laporan PDF</div>
-              <div className="text-cream/70 text-xs font-mono uppercase tracking-widest">
-                {data.filename}
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onDownload}
-              className="flex items-center gap-2 bg-teal text-cream px-4 py-2 rounded-full font-body font-semibold shadow-card hover:bg-teal-light transition"
-              data-testid="pdf-preview-download-btn"
-            >
-              <Download size={14} /> Unduh Sekarang
-            </button>
-            <button
-              onClick={onClose}
-              className="grid h-9 w-9 place-items-center rounded-full bg-cream text-primary hover:bg-maroon hover:text-cream transition"
-              data-testid="pdf-preview-close-btn"
-              aria-label="Tutup preview"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </div>
-        {/* PDF iframe */}
-        <div className="flex-1 bg-[#525659] overflow-hidden relative">
-          <iframe
-            src={data.url}
-            title="Preview PDF Laporan"
-            type="application/pdf"
-            className="w-full h-full border-0 relative z-10"
-            data-testid="pdf-preview-iframe"
-          />
-          {/* Fallback message: shows behind iframe if browser can't render PDF inline */}
-          <div className="absolute inset-0 grid place-items-center text-cream/80 p-6 text-center z-0 pointer-events-none">
-            <div className="pointer-events-auto max-w-md bg-black/40 backdrop-blur rounded-xl p-5 border border-cream/20">
-              <p className="font-body text-cream/90 text-sm">
-                Jika PDF tidak muncul di jendela ini (mis. browser tanpa PDF viewer bawaan), gunakan
-                tombol <b>Unduh Sekarang</b> di kanan atas, atau
-                <a
-                  href={data.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ml-1 text-teal-light underline"
-                  data-testid="pdf-preview-open-tab"
-                >
-                  buka di tab baru
-                </a>
-                .
-              </p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
+function PdfPreviewModalLegacy() { return null; }
+// PdfPreviewModal is now imported from /components/PdfPreviewModal.jsx
 
 function ReflectionSection({ quiz, answers, onAnswer, correctCount, answerCount, allAnswered, showResults, setShowResults }) {
   return (

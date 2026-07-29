@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Search, Check, AlertCircle } from "lucide-react";
 import SceneShell from "../components/SceneShell";
 import ClueUnlockedToast from "../components/ClueUnlockedToast";
+import CloseUpDiagram from "../components/CloseUpDiagram";
 import { SCENE2_HOTSPOTS, SCENE2_QUIZ } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
@@ -191,23 +192,36 @@ function ClueDetailModal({ spot, onClose }) {
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="paper-bg max-w-md w-full rounded-2xl border-l-8 border-maroon shadow-floating relative p-6"
+        className="paper-bg max-w-2xl w-full rounded-2xl border-l-8 border-maroon shadow-floating relative overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-primary text-cream hover:bg-maroon transition"
+          className="absolute top-3 right-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-primary text-cream hover:bg-maroon transition"
           data-testid="clue-detail-close"
         >
           <X size={16} />
         </button>
-        <div className="text-[10px] font-mono uppercase tracking-widest text-maroon">
-          Gejala Klinis Ditemukan
-        </div>
-        <h3 className="font-display font-bold text-primary text-2xl mt-1">{spot.clue.title}</h3>
-        <p className="mt-3 text-primary/85 font-body leading-relaxed">{spot.clue.description}</p>
-        <div className="mt-4 flex items-center gap-2 text-teal-dark font-mono text-xs">
-          <Check size={14} /> Tersimpan ke Jurnal Investigasi
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-0">
+          {/* Left: text */}
+          <div className="p-5 md:p-6">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-maroon">
+              Gejala Klinis Ditemukan
+            </div>
+            <h3 className="font-display font-bold text-primary text-2xl mt-1 leading-tight">
+              {spot.clue.title}
+            </h3>
+            <p className="mt-3 text-primary/85 font-body leading-relaxed text-sm">
+              {spot.clue.description}
+            </p>
+            <div className="mt-4 flex items-center gap-2 text-teal-dark font-mono text-xs">
+              <Check size={14} /> Tersimpan ke Jurnal Investigasi
+            </div>
+          </div>
+          {/* Right: close-up diagram */}
+          <div className="bg-cream/50 p-3 md:p-4 border-t md:border-t-0 md:border-l border-primary/10">
+            <CloseUpDiagram hotspotId={spot.id} />
+          </div>
         </div>
       </motion.div>
     </motion.div>
