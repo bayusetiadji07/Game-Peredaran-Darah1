@@ -38,7 +38,15 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
 
-## Implemented (Session #3 — 29 Jul 2026 — MVP LENGKAP 8 SCENE ✅)
+## Implemented (Session #4 — 29 Jul 2026 — POLISH)
+- ✅ **Timer play-time akurat**: Tick 1s tepat via `setInterval` di `GameContext`. Auto-pause saat `document.visibilityState !== "visible"` (tab tidak aktif), auto-resume saat kembali. Persist ke `localStorage`. Ditampilkan di HUD (kanan atas, badge kecil dengan ikon jam) selama gameplay dan sebagai stat card di Scene 7 (format MM:SS).
+- ✅ **PDF Preview Modal**: Tombol baru `Preview PDF` di Scene 7 → membuka modal 92vh dengan iframe `blob:` URL. Header berisi filename + tombol "Unduh Sekarang" + close. Fallback message tersedia untuk browser tanpa PDF viewer bawaan (contoh WebKit headless) → link "buka di tab baru". `buildPdf()` di-refactor jadi fungsi murni yang dipakai bersama oleh Preview dan Download.
+- ✅ **Bugfix visual — background asset karakter**: Terdeteksi 3 file (`ibu-rani.png`, `dr-salma.png`, `teman-rani.png`) memakai mode RGB dengan latar putih solid → tampak sebagai "kotak putih" di scene. Diperbaiki via script Python + Pillow:
+  1. Flood-fill dari pinggir gambar mendeteksi pixel near-white (RGB ≥ 225) yang terhubung ke tepi → dijadikan transparan (alpha=0). Ini aman: highlight putih di dalam karakter (mata, gigi, kerah baju) tidak ikut hilang karena tidak terhubung ke tepi.
+  2. Feather alpha (Gaussian blur 1.2px) untuk mengurangi halo pinggir.
+  3. Semua file karakter juga di-resize ke max width 900px untuk optimasi web.
+  4. Ukuran folder karakter: **~13MB → ~2.3MB (85% reduction)** — loading scene jadi jauh lebih cepat.
+  5. Aset asli tersimpan di `/app/frontend/public/assets/karakter_orig/` sebagai backup.
 - ✅ **Scene 6 — Ruang Kesimpulan**: Cork-board sebab-akibat 4 kolom (Gejala → Data Lab → Mekanisme Organ → Penyebab Gaya Hidup) dengan drag-and-drop HTML5 dari tray kartu Jurnal. Kolom otomatis berdasarkan `unlockedInScene`. Skor +5 per penempatan benar. Form Laporan Rekomendasi (6 pilihan, min 3, 4 ideal + 2 keliru). Feedback modal dengan akurasi persen setelah kirim laporan. Tombol lepaskan kartu dari kolom.
 - ✅ **Scene 7 — Epilog & Refleksi**: Ending bercabang berdasarkan `state.score.total` (ambang batas = 55) → "Detektif Utama" (Trophy, warna teal) atau "Detektif Pemula" (Award, warna mustard). Ilustrasi Rani sehat dengan badge "Beberapa Minggu Kemudian". Kuis refleksi 5 soal mixing konsep IPA + SSI (fungsi Hb, alur pulmonal, interpretasi Hb rendah, faktor sosial anemia remaja putri, kebijakan sekolah). Jawaban benar +3 poin, feedback langsung. Tombol Cetak (window.print) + Unduh PDF (jsPDF native, tanpa server) + Main Lagi.
 - ✅ Export PDF terstruktur: header identitas siswa, ringkasan bukti dikelompokkan per kategori, kesimpulan diagnosis & rekomendasi standar. Nama file `laporan-detektif-{nama_siswa}.pdf`
@@ -49,7 +57,7 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 _Semua 8 scene sudah selesai. Backlog di bawah bersifat opsional peningkatan._
 
 ### P1 — Enhancement
-- Timer play-time tracker (currently placeholder)
+- ~~Timer play-time tracker~~ ✅ done in Session #4
 - Preload gambar & audio agar tidak ada flicker
 - Tooltip yang lebih rich untuk hotspot (dengan gambar close-up)
 - Panel guru untuk melihat progres semua siswa (butuh backend + akun)
@@ -64,3 +72,5 @@ _Semua 8 scene sudah selesai. Backlog di bawah bersifat opsional peningkatan._
 - Musik latar dan SFX klik memakai Pixabay CDN (CC0). Jika CDN tidak dapat diakses, audio silent (tidak crash).
 - Hotspot Scene 2 diposisikan relatif terhadap image Rani; jika ingin lebih presisi, atur ulang koordinat x/y di `SCENE2_HOTSPOTS` (file `src/data/gameContent.js`).
 - Semua text Bahasa Indonesia disusun sesuai jenjang SMP Kelas VIII.
+
+## Implemented (Session #4 — 29 Jul 2026 — POLISH)

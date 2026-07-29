@@ -10,7 +10,8 @@ import {
   Sparkles,
   Check,
   X,
-  Home,
+  Eye,
+  Clock,
 } from "lucide-react";
 import SceneShell from "../components/SceneShell";
 import { SCENE7_QUIZ, ENDING_THRESHOLD, CATEGORY_LABEL } from "../data/gameContent";
@@ -22,6 +23,7 @@ export default function Scene7Epilog() {
 
   const [answers, setAnswers] = useState(state.quizAnswers || {}); // local mirror to reflect updates instantly
   const [showResults, setShowResults] = useState(false);
+  const [pdfPreview, setPdfPreview] = useState(null); // { url, blob, filename }
 
   const totalScore = state.score.total;
   const isElite = totalScore >= ENDING_THRESHOLD;
@@ -44,8 +46,15 @@ export default function Scene7Epilog() {
   const finalTotal = useMemo(() => state.score.total, [state.score.total]);
   const grade = isElite ? "Detektif Utama" : "Detektif Pemula";
 
-  const exportPdf = () => {
-    playClick();
+  const formatTime = (sec) => {
+    const s = Math.max(0, Math.floor(sec || 0));
+    const m = Math.floor(s / 60);
+    const rs = s % 60;
+    return `${String(m).padStart(2, "0")}:${String(rs).padStart(2, "0")}`;
+  };
+
+  // Build the PDF document (used by both preview and download)
+  const buildPdf = () => {
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     const marginX = 15;
     let y = 18;
@@ -70,7 +79,11 @@ export default function Scene7Epilog() {
     const info = [
       ["Nama Detektif", state.player.name || "-"],
       ["Kelas / Jenjang", "SMP · Kelas VIII (Fase D)"],
-      ["Tanggal Cetak", new Date().toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" })],
+      [
+        "Tanggal Cetak",
+        new Date().toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" }),
+      ],
+      ["Waktu Bermain", formatTime(state.playTimeSeconds)],
       ["Total Skor", `${finalTotal} poin`],
       ["Peringkat", grade],
     ];
@@ -94,7 +107,6 @@ export default function Scene7Epilog() {
 
     doc.setFontSize(10);
     doc.setTextColor(40, 40, 40);
-    // Group by category
     const grouped = state.journal.clues.reduce((acc, c) => {
       (acc[c.category] = acc[c.category] || []).push(c);
       return acc;
@@ -124,7 +136,6 @@ export default function Scene7Epilog() {
       y += 2;
     });
 
-    // Recommendations placeholder — main state doesn't store selected recs; we can reuse skills:
     y += 3;
     if (y > 260) {
       doc.addPage();
@@ -171,13 +182,43 @@ export default function Scene7Epilog() {
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
     doc.text(
-      "Laporan ini dihasilkan otomatis oleh game edukasi \"Detektif Peredaran Darah\" — SMP N 3 Besuki.",
+      'Laporan ini dihasilkan otomatis oleh game edukasi "Detektif Peredaran Darah" — SMP N 3 Besuki.',
       marginX,
       y
     );
 
     const filename = `laporan-detektif-${(state.player.name || "siswa").replace(/\s+/g, "_")}.pdf`;
-    doc.save(filename);
+    return { doc, filename };
+  };
+
+  const openPdfPreview = () => {
+    playClick();
+    const { doc, filename } = buildPdf();
+    // Generate blob URL for preview
+    const blob = doc.output("blob");
+    const url = URL.createObjectURL(blob);
+    setPdfPreview({ url, blob, filename });
+  };
+
+  const closePdfPreview = () => {
+    if (pdfPreview && pdfPreview.url) URL.revokeObjectURL(pdfPreview.url);
+    setPdfPreview(null);
+  };
+
+  const downloadPdf = () => {
+    playClick();
+    if (pdfPreview) {
+      // download from preview
+      const a = document.createElement("a");
+      a.href = pdfPreview.url;
+      a.download = pdfPreview.filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      const { doc, filename } = buildPdf();
+      doc.save(filename);
+    }
   };
 
   return (
@@ -209,6 +250,7 @@ export default function Scene7Epilog() {
             grade={grade}
             totalScore={finalTotal}
             player={state.player}
+            playTime={formatTime(state.playTimeSeconds)}
           />
 
           {/* Refleksi Quiz */}
@@ -228,6 +270,9 @@ export default function Scene7Epilog() {
       {/* Bottom Bar */}
       <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center px-6">
         <div className="bg-paper border-2 border-primary/15 rounded-full shadow-floating px-5 py-2.5 flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-1.5 pr-3 border-r border-primary/15 font-mono text-xs uppercase tracking-widest text-primary/70">
+            <Clock size={13} /> {formatTime(state.playTimeSeconds)}
+          </div>
           <button
             onClick={() => {
               playClick();
@@ -239,8 +284,15 @@ export default function Scene7Epilog() {
             <Printer size={14} /> Cetak
           </button>
           <button
-            onClick={exportPdf}
+            onClick={openPdfPreview}
             className="btn-primary !py-2"
+            data-testid="scene7-preview-btn"
+          >
+            <Eye size={14} /> Preview PDF
+          </button>
+          <button
+            onClick={downloadPdf}
+            className="btn-secondary !py-2"
             data-testid="scene7-pdf-btn"
           >
             <Download size={14} /> Unduh PDF
@@ -259,11 +311,21 @@ export default function Scene7Epilog() {
           </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {pdfPreview && (
+          <PdfPreviewModal
+            data={pdfPreview}
+            onDownload={downloadPdf}
+            onClose={closePdfPreview}
+          />
+        )}
+      </AnimatePresence>
     </SceneShell>
   );
 }
 
-function EpilogCard({ isElite, grade, totalScore, player }) {
+function EpilogCard({ isElite, grade, totalScore, player, playTime }) {
   const Icon = isElite ? Trophy : Award;
   return (
     <motion.div
@@ -312,22 +374,107 @@ function EpilogCard({ isElite, grade, totalScore, player }) {
           )}
         </p>
 
-        <div className="mt-5 grid grid-cols-3 gap-2">
+        <div className="mt-5 grid grid-cols-4 gap-2">
           <StatBox label="Total Skor" value={totalScore} />
           <StatBox label="Ambang Elite" value={ENDING_THRESHOLD} />
           <StatBox label="Ending" value={isElite ? "UTAMA" : "PEMULA"} />
+          <StatBox label="Waktu Bermain" value={playTime} testid="epilog-playtime" />
         </div>
       </div>
     </motion.div>
   );
 }
 
-function StatBox({ label, value }) {
+function StatBox({ label, value, testid }) {
   return (
-    <div className="rounded-lg bg-paper border border-primary/15 py-2 px-2 text-center">
+    <div
+      className="rounded-lg bg-paper border border-primary/15 py-2 px-2 text-center"
+      data-testid={testid}
+    >
       <div className="font-mono uppercase text-[9px] tracking-widest text-primary/60">{label}</div>
       <div className="font-display font-bold text-primary text-lg leading-none mt-0.5">{value}</div>
     </div>
+  );
+}
+
+function PdfPreviewModal({ data, onDownload, onClose }) {
+  return (
+    <motion.div
+      className="fixed inset-0 z-[70] bg-black/80 grid place-items-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      data-testid="pdf-preview-overlay"
+    >
+      <motion.div
+        initial={{ y: 30, opacity: 0, scale: 0.96 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-cream w-full max-w-5xl h-[92vh] rounded-2xl shadow-floating border-2 border-primary/20 flex flex-col overflow-hidden"
+        data-testid="pdf-preview-modal"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between bg-primary text-cream px-5 py-3 border-b-2 border-primary-900">
+          <div className="flex items-center gap-3">
+            <Eye size={20} />
+            <div>
+              <div className="font-display font-bold text-lg leading-tight">Preview Laporan PDF</div>
+              <div className="text-cream/70 text-xs font-mono uppercase tracking-widest">
+                {data.filename}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onDownload}
+              className="flex items-center gap-2 bg-teal text-cream px-4 py-2 rounded-full font-body font-semibold shadow-card hover:bg-teal-light transition"
+              data-testid="pdf-preview-download-btn"
+            >
+              <Download size={14} /> Unduh Sekarang
+            </button>
+            <button
+              onClick={onClose}
+              className="grid h-9 w-9 place-items-center rounded-full bg-cream text-primary hover:bg-maroon hover:text-cream transition"
+              data-testid="pdf-preview-close-btn"
+              aria-label="Tutup preview"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+        {/* PDF iframe */}
+        <div className="flex-1 bg-[#525659] overflow-hidden relative">
+          <iframe
+            src={data.url}
+            title="Preview PDF Laporan"
+            type="application/pdf"
+            className="w-full h-full border-0 relative z-10"
+            data-testid="pdf-preview-iframe"
+          />
+          {/* Fallback message: shows behind iframe if browser can't render PDF inline */}
+          <div className="absolute inset-0 grid place-items-center text-cream/80 p-6 text-center z-0 pointer-events-none">
+            <div className="pointer-events-auto max-w-md bg-black/40 backdrop-blur rounded-xl p-5 border border-cream/20">
+              <p className="font-body text-cream/90 text-sm">
+                Jika PDF tidak muncul di jendela ini (mis. browser tanpa PDF viewer bawaan), gunakan
+                tombol <b>Unduh Sekarang</b> di kanan atas, atau
+                <a
+                  href={data.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-1 text-teal-light underline"
+                  data-testid="pdf-preview-open-tab"
+                >
+                  buka di tab baru
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

@@ -37,6 +37,45 @@ export function GameProvider({ children }) {
     }
   }, [state]);
 
+  // Accurate play-time tracker: increment 1s every second while:
+  //  - player has a name (game has started)
+  //  - current scene is not the final epilog (scene 7) OR epilog quiz not fully answered — keep it simple: stop when reset.
+  //  - document is visible (pauses when tab hidden)
+  useEffect(() => {
+    let intervalId = null;
+    const shouldTick = () =>
+      !!state.player.name && document.visibilityState === "visible";
+
+    const start = () => {
+      if (intervalId) return;
+      intervalId = window.setInterval(() => {
+        setState((s) => {
+          if (!s.player.name) return s;
+          return { ...s, playTimeSeconds: (s.playTimeSeconds || 0) + 1 };
+        });
+      }, 1000);
+    };
+    const stop = () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+
+    if (shouldTick()) start();
+    else stop();
+
+    const onVis = () => {
+      if (shouldTick()) start();
+      else stop();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      stop();
+    };
+  }, [state.player.name]);
+
   const actions = useMemo(
     () => ({
       setPlayer: (name, avatarId) =>

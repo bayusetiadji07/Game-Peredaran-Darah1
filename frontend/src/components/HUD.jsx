@@ -1,7 +1,13 @@
 import React from "react";
-import { Volume2, VolumeX, Notebook, RotateCcw } from "lucide-react";
+import { Volume2, VolumeX, Notebook, RotateCcw, Clock } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { playClick } from "./AudioManager";
+
+function fmtTime(sec) {
+  const s = Math.max(0, Math.floor(sec || 0));
+  const m = Math.floor(s / 60);
+  return `${String(m).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+}
 
 export default function HUD({ onOpenJournal, sceneTag, ssiTag }) {
   const { state, toggleMute, reset } = useGame();
@@ -17,6 +23,16 @@ export default function HUD({ onOpenJournal, sceneTag, ssiTag }) {
 
       {/* Right: controls */}
       <div className="pointer-events-auto flex items-center gap-2">
+        {state.player.name && (
+          <div
+            className="hidden md:flex items-center gap-1.5 bg-paper text-primary rounded-full h-11 px-3 shadow-card border border-primary/10 font-mono text-xs tracking-widest"
+            data-testid="hud-timer"
+            title="Waktu bermain"
+          >
+            <Clock size={14} className="text-maroon" />
+            <span>{fmtTime(state.playTimeSeconds)}</span>
+          </div>
+        )}
         <button
           data-testid="hud-mute-btn"
           onClick={() => {
