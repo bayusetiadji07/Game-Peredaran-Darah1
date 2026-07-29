@@ -37,14 +37,13 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 1 — Briefing UKS**: 6-line dialog Bu Nita, transisi ke Scene 2
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
-- ✅ SceneComingSoon placeholder untuk Scene 4–7
-- ✅ Data-testid pada semua elemen interaktif
-- ✅ Verifikasi visual via screenshot (Scene 0, avatar, Scene 1 dialog, Scene 2 hotspots + clue modal + toast + journal, Scene 3 lab)
+
+## Implemented (Session #2 — 29 Jul 2026)
+- ✅ **Scene 4 — Ruang Organ**: diagram interaktif peredaran darah dengan 4 hotspot organ (jantung/paru/arteri/vena) → modal info organ. Dua sequencer drag-reorder untuk Peredaran Kecil (Pulmonal) & Besar (Sistemik) dengan validasi urutan. Toggle "Darah Normal ↔ Darah Rani" mengubah kepadatan partikel sel darah. Pertanyaan argumentasi akhir (multiple-choice beralasan) → clue "Kompensasi Jantung" masuk ke Jurnal
+- ✅ **Scene 5 — Interogasi Saksi**: 3 saksi (Ibu Rani, Rani, Sinta teman sebangku) tersebar di 2 lokasi (Rumah Rani + Kantin Sekolah) dengan location switcher. Dialog wawancara branching: pemain pilih 3 pertanyaan per saksi → dapat jawaban naratif + clue kategori Gaya Hidup. Total 9 clue SSI baru (pola makan, menstruasi, TTD, mitos, akses gizi). Pertanyaan refleksi gender akhir → skor refleksi
 
 ## Prioritized Backlog
 ### P0 — Iterasi Berikutnya (untuk sesi selanjutnya)
-- Scene 4 — Ruang Organ: peta peredaran darah interaktif, drag-drop urutan pulmonal & sistemik, toggle Normal vs Rani
-- Scene 5 — Interogasi Saksi: 3 saksi (Ibu Rani, Rani sendiri, teman sebangku), branching dialog, clue Gaya Hidup
 - Scene 6 — Ruang Kesimpulan: cork board interaktif, drag clue card, benang merah untuk sebab-akibat, formulir rekomendasi
 - Scene 7 — Epilog & Refleksi: ending bercabang berdasar skor, kuis refleksi 3–5 soal, export ringkasan PDF (jsPDF)
 

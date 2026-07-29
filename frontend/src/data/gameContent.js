@@ -212,6 +212,327 @@ export const SCENE3_DIALOG_INTRO = [
   },
 ];
 
+// ============================================================
+// SCENE 4 — RUANG ORGAN (Simulasi Peta Peredaran Darah)
+// ============================================================
+
+// Organs positioned on the full-body diagram (percent from top-left).
+// Positions target diagram-peredaran-darah.png.
+export const SCENE4_ORGANS = [
+  {
+    id: "jantung",
+    label: "Jantung",
+    x: 50, y: 40,
+    info: "Jantung adalah pompa berotot yang mendorong darah ke seluruh tubuh. Terdiri dari 4 ruang: 2 serambi (atrium) & 2 bilik (ventrikel).",
+  },
+  {
+    id: "paru",
+    label: "Paru-paru",
+    x: 68, y: 34,
+    info: "Di paru-paru, darah melepas karbon dioksida dan mengikat oksigen. Ini adalah tempat pertukaran gas untuk peredaran darah kecil.",
+  },
+  {
+    id: "arteri",
+    label: "Arteri (Aorta)",
+    x: 50, y: 26,
+    info: "Arteri membawa darah kaya oksigen dari jantung ke seluruh tubuh. Dindingnya tebal dan elastis karena tekanan darahnya tinggi.",
+  },
+  {
+    id: "vena",
+    label: "Vena Cava",
+    x: 42, y: 52,
+    info: "Vena membawa darah miskin oksigen kembali ke jantung. Bertekanan rendah, memiliki katup agar darah tak berbalik arah.",
+  },
+];
+
+// Two circulation paths — student must arrange the middle steps in correct order.
+export const SCENE4_PATHS = {
+  pulmonal: {
+    id: "pulmonal",
+    label: "Peredaran Darah Kecil (Pulmonal)",
+    desc: "Rute darah dari jantung ke paru-paru dan kembali ke jantung untuk mengambil oksigen.",
+    fixedStart: "Bilik Kanan Jantung",
+    fixedEnd: "Serambi Kiri Jantung",
+    correctOrder: ["Arteri Pulmonalis", "Paru-paru", "Vena Pulmonalis"],
+    // shuffle-able tokens (subset that includes distractors — must equal correctOrder length)
+    tokens: ["Vena Pulmonalis", "Paru-paru", "Arteri Pulmonalis"],
+  },
+  sistemik: {
+    id: "sistemik",
+    label: "Peredaran Darah Besar (Sistemik)",
+    desc: "Rute darah dari jantung ke seluruh tubuh dan kembali membawa CO₂ ke jantung.",
+    fixedStart: "Bilik Kiri Jantung",
+    fixedEnd: "Serambi Kanan Jantung",
+    correctOrder: ["Aorta", "Seluruh Tubuh", "Vena Cava"],
+    tokens: ["Vena Cava", "Aorta", "Seluruh Tubuh"],
+  },
+};
+
+export const SCENE4_ARGUMENT = {
+  id: "q-scene4-argumen",
+  question:
+    "Berdasarkan simulasi, mengapa jantung Rani harus bekerja lebih keras walau ia tidak berolahraga?",
+  choices: [
+    {
+      id: "a",
+      text: "Karena pembuluh darahnya menyempit total.",
+      correct: false,
+      feedback: "Belum tepat. Pembuluh darah Rani tidak menyempit; masalahnya ada pada muatan oksigen di darahnya.",
+    },
+    {
+      id: "b",
+      text: "Karena kadar hemoglobinnya rendah, sehingga tiap tetes darah membawa lebih sedikit oksigen — jantung harus memompa lebih sering supaya kebutuhan oksigen tubuh tetap terpenuhi.",
+      correct: true,
+      feedback:
+        "Tepat! Ini disebut mekanisme kompensasi kardiovaskular. Jantung menaikkan frekuensi pompa untuk mengangkut oksigen yang sama dengan darah yang muatannya berkurang.",
+    },
+    {
+      id: "c",
+      text: "Karena paru-parunya sudah tidak bisa mengambil oksigen.",
+      correct: false,
+      feedback:
+        "Kurang tepat. Paru-paru Rani sehat; ia bisa menghirup oksigen normal, tetapi darahnya kurang pembawa oksigen (hemoglobin).",
+    },
+  ],
+};
+
+// Clues automatically unlocked when the student completes the simulation:
+export const SCENE4_CLUES = [
+  {
+    id: "clue-pulmonal-benar",
+    title: "Alur Peredaran Kecil Terpetakan",
+    category: "medis",
+    description:
+      "Bilik kanan → arteri pulmonalis → paru-paru → vena pulmonalis → serambi kiri. Di paru-paru, oksigen diambil untuk diedarkan.",
+    unlockedInScene: 4,
+  },
+  {
+    id: "clue-sistemik-benar",
+    title: "Alur Peredaran Besar Terpetakan",
+    category: "medis",
+    description:
+      "Bilik kiri → aorta → seluruh tubuh → vena cava → serambi kanan. Sel tubuh menyerap oksigen dan melepas karbondioksida.",
+    unlockedInScene: 4,
+  },
+  {
+    id: "clue-kompensasi-jantung",
+    title: "Kompensasi Jantung",
+    category: "medis",
+    description:
+      "Karena darah Rani kurang oksigen (Hb rendah), jantung memompa lebih cepat untuk memenuhi kebutuhan oksigen tubuh — inilah sebab denyut nadi cepat & jantung berdebar.",
+    unlockedInScene: 4,
+  },
+];
+
+// ============================================================
+// SCENE 5 — INTEROGASI SAKSI (Gaya Hidup & Gender)
+// ============================================================
+
+export const SCENE5_LOCATIONS = {
+  rumah: {
+    id: "rumah",
+    label: "Rumah Rani",
+    bg: "/assets/background/bg-rumah-rani.png",
+  },
+  kantin: {
+    id: "kantin",
+    label: "Kantin Sekolah",
+    bg: "/assets/background/bg-kantin.png",
+  },
+};
+
+export const SCENE5_WITNESSES = [
+  {
+    id: "ibu-rani",
+    name: "Ibu Rani",
+    portrait: "/assets/karakter/ibu-rani.png",
+    location: "rumah",
+    role: "Ibu kandung Rani, ibu rumah tangga.",
+    intro:
+      "Halo, Detektif. Silakan duduk. Ibu memang khawatir dengan kondisi Rani belakangan ini…",
+    questions: [
+      {
+        id: "ibu-q1",
+        text: "Apa menu makan sehari-hari keluarga Ibu?",
+        answer:
+          "Biasanya nasi, sayur asem, tempe, kadang telur. Jarang beli daging karena mahal. Kalau ada lauk daging, biasanya Bapak dan adik laki-lakinya dulu yang ambil — Rani menyusul kalau masih ada.",
+        clue: {
+          id: "clue-pola-makan-timpang",
+          title: "Pola Makan Tak Setara",
+          category: "gayaHidup",
+          description:
+            "Sumber protein hewani (daging, telur) di keluarga Rani lebih dulu diberikan pada anggota laki-laki. Rani sering hanya kebagian sedikit — asupan zat besi berkurang.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "ibu-q2",
+        text: "Bagaimana kondisi menstruasi Rani, Bu?",
+        answer:
+          "Menstruasi Rani lumayan banyak, kadang sampai 7 hari. Ibu belum pernah mengajaknya cek darah, karena Ibu kira itu wajar buat perempuan.",
+        clue: {
+          id: "clue-menstruasi-banyak",
+          title: "Kehilangan Darah Menstruasi",
+          category: "gayaHidup",
+          description:
+            "Menstruasi Rani cenderung banyak (7 hari). Setiap menstruasi tubuh kehilangan zat besi — bila tak diimbangi asupan, berisiko anemia.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "ibu-q3",
+        text: "Apakah Rani rutin sarapan sebelum sekolah?",
+        answer:
+          "Kadang cuma teh manis dan sepotong roti. Ibu sibuk pagi hari, jadi Rani sering langsung berangkat saja.",
+        clue: {
+          id: "clue-sarapan-minim",
+          title: "Sarapan Minim Gizi",
+          category: "gayaHidup",
+          description:
+            "Sarapan Rani hanya karbohidrat sederhana (roti, teh manis) tanpa protein/zat besi. Ini menurunkan cadangan energi & besi harian.",
+          unlockedInScene: 5,
+        },
+      },
+    ],
+  },
+  {
+    id: "rani",
+    name: "Rani",
+    portrait: "/assets/karakter/rani-pucat.png",
+    location: "rumah",
+    role: "Objek investigasi (14 tahun, kelas VIII).",
+    intro:
+      "Halo Kak Detektif… iya, aku memang sering merasa cepat capek dan pusing kalau berdiri lama.",
+    questions: [
+      {
+        id: "rani-q1",
+        text: "Apa jajanan favoritmu di sekolah?",
+        answer:
+          "Aku suka mie instan pedas atau gorengan, Kak. Sekali-kali beli teh manis dingin. Kalau nasi kotak dari kantin agak mahal, jadi jarang aku beli.",
+        clue: {
+          id: "clue-jajan-rendah-fe",
+          title: "Jajanan Rendah Zat Besi",
+          category: "gayaHidup",
+          description:
+            "Pilihan jajan Rani dominan karbo & lemak (mie, gorengan) — minim protein hewani & sayur hijau yang kaya zat besi.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "rani-q2",
+        text: "Apakah kamu pernah minum tablet tambah darah dari sekolah?",
+        answer:
+          "Pernah dibagikan… tapi rasanya kurang enak dan bikin mual. Jadi kadang aku simpan saja atau tidak diminum. Teman-teman lain juga banyak yang begitu.",
+        clue: {
+          id: "clue-ttd-tidak-diminum",
+          title: "TTD Tidak Dikonsumsi",
+          category: "gayaHidup",
+          description:
+            "Program Tablet Tambah Darah (TTD) di sekolah sudah dibagikan, tapi banyak siswi termasuk Rani tidak meminumnya karena efek samping ringan — kesempatan mencegah anemia terlewat.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "rani-q3",
+        text: "Bagaimana perasaanmu tentang tubuhmu belakangan ini?",
+        answer:
+          "Aku sering merasa lemas dan pusing, apalagi pas menstruasi. Tapi… aku pikir semua perempuan memang begitu, jadi aku tidak cerita ke siapa-siapa.",
+        clue: {
+          id: "clue-normalisasi-lemas",
+          title: "Normalisasi Rasa Lemas",
+          category: "gayaHidup",
+          description:
+            "Rani menganggap lemas & pusing saat menstruasi adalah hal wajar bagi perempuan, sehingga tidak segera mencari bantuan — literasi kesehatan remaja putri masih minim.",
+          unlockedInScene: 5,
+        },
+      },
+    ],
+  },
+  {
+    id: "teman",
+    name: "Sinta",
+    portrait: "/assets/karakter/teman-rani.png",
+    location: "kantin",
+    role: "Teman sebangku Rani.",
+    intro:
+      "Halo, Detektif! Aku sebangku dengan Rani dari kelas VII. Aku ingin bantu apa saja biar dia sembuh.",
+    questions: [
+      {
+        id: "teman-q1",
+        text: "Kamu sering lihat Rani makan apa di kantin?",
+        answer:
+          "Sama sepertiku, sih. Kami sering patungan beli gorengan atau cilok. Uang jajan kami memang pas-pasan, dan menu bergizi seperti nasi + telur agak mahal.",
+        clue: {
+          id: "clue-akses-gizi-terbatas",
+          title: "Akses Gizi Terbatas",
+          category: "gayaHidup",
+          description:
+            "Faktor ekonomi & harga di kantin membatasi remaja putri mengakses makanan bergizi seimbang. Isu SSI: kebijakan kantin sehat & subsidi menu bergizi perlu diperkuat.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "teman-q2",
+        text: "Apakah Rani pernah pingsan di kelas sebelum ini?",
+        answer:
+          "Beberapa kali dia hampir pingsan pas pelajaran olahraga. Katanya kepala berputar. Tapi guru menyuruhnya istirahat sebentar, dan kami pikir dia hanya lelah.",
+        clue: {
+          id: "clue-pingsan-berulang",
+          title: "Kejadian Pingsan Berulang",
+          category: "gayaHidup",
+          description:
+            "Rani sudah beberapa kali hampir pingsan di sekolah, tapi tidak dirujuk untuk pemeriksaan lanjutan. Sistem UKS perlu deteksi dini kasus berulang.",
+          unlockedInScene: 5,
+        },
+      },
+      {
+        id: "teman-q3",
+        text: "Kamu tahu tentang tablet tambah darah?",
+        answer:
+          "Tahu, Kak. Tapi banyak dari kami malas minum karena rasanya. Guru IPA sebenarnya sudah menjelaskan manfaatnya, tapi orang tua di rumah kadang bilang, 'Ah, itu obat, jangan sering-sering.'",
+        clue: {
+          id: "clue-mitos-ttd",
+          title: "Mitos Seputar TTD",
+          category: "gayaHidup",
+          description:
+            "Ada persepsi keliru di keluarga bahwa TTD adalah 'obat keras'. Edukasi masyarakat tentang gizi mikro (zat besi) belum merata — hambatan sosial-budaya nyata.",
+          unlockedInScene: 5,
+        },
+      },
+    ],
+  },
+];
+
+export const SCENE5_REFLECTION = {
+  id: "q-scene5-refleksi",
+  question:
+    "Mengapa remaja putri secara umum lebih berisiko mengalami anemia dibanding remaja putra?",
+  choices: [
+    {
+      id: "a",
+      text: "Karena tubuh perempuan lebih lemah secara alami.",
+      correct: false,
+      feedback:
+        "Bukan itu penyebab utamanya. Ini stereotip; secara biologis, kebutuhan zat besi meningkat karena faktor spesifik.",
+    },
+    {
+      id: "b",
+      text: "Karena remaja putri mengalami menstruasi (kehilangan darah rutin) sekaligus kadang kalah prioritas dalam pembagian makanan bergizi di keluarga — dua faktor ini menaikkan risiko kekurangan zat besi.",
+      correct: true,
+      feedback:
+        "Tepat! Ini adalah dilema Socio-Scientific Issue: gabungan faktor biologis (menstruasi) dengan faktor sosial-budaya (pola pembagian makanan berbasis gender) membuat anemia lebih rentan pada remaja putri.",
+    },
+    {
+      id: "c",
+      text: "Karena remaja putri suka diet ketat.",
+      correct: false,
+      feedback:
+        "Diet memang bisa berkontribusi, tapi bukan penyebab utama secara populasi. Ada faktor menstruasi dan akses gizi yang lebih menentukan.",
+    },
+  ],
+};
+
+
 export const CATEGORY_LABEL = {
   gejala: "Gejala Klinis",
   medis: "Data Medis",

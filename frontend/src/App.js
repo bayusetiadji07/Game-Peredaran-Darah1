@@ -5,6 +5,8 @@ import Scene0SplashMenu from "./scenes/Scene0SplashMenu";
 import Scene1Briefing from "./scenes/Scene1Briefing";
 import Scene2Symptoms from "./scenes/Scene2Symptoms";
 import Scene3Lab from "./scenes/Scene3Lab";
+import Scene4Organs from "./scenes/Scene4Organs";
+import Scene5Interrogation from "./scenes/Scene5Interrogation";
 import SceneComingSoon from "./scenes/SceneComingSoon";
 import AudioManager from "./components/AudioManager";
 import "./App.css";
@@ -23,6 +25,10 @@ function SceneRouter() {
         return <Scene2Symptoms key="s2" />;
       case 3:
         return <Scene3Lab key="s3" />;
+      case 4:
+        return <Scene4Organs key="s4" />;
+      case 5:
+        return <Scene5Interrogation key="s5" />;
       default:
         return <SceneComingSoon key={`sc${scene}`} number={scene} />;
     }
