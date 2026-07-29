@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FileText, Printer } from "lucide-react";
 import { useGame } from "../context/GameContext";
@@ -36,7 +37,18 @@ export default function Journal({ open, onClose }) {
     return acc;
   }, {});
 
-  return (
+  // Handler with explicit event stop to prevent double-close races
+  const handleClose = (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    playClick();
+    onClose();
+  };
+
+  // Render into document.body via portal so nothing else can intercept clicks.
+  const modal = (
     <AnimatePresence>
       {open && (
         <motion.div
@@ -83,14 +95,12 @@ export default function Journal({ open, onClose }) {
                 </button>
                 <button
                   data-testid="journal-close-btn"
-                  onClick={() => {
-                    playClick();
-                    onClose();
-                  }}
-                  className="grid h-9 w-9 place-items-center rounded-full bg-cream text-primary hover:bg-maroon hover:text-cream transition"
+                  type="button"
+                  onClick={handleClose}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-cream text-primary hover:bg-maroon hover:text-cream transition relative z-10"
                   aria-label="Tutup jurnal"
                 >
-                  <X size={18} />
+                  <X size={20} className="pointer-events-none" />
                 </button>
               </div>
             </div>
@@ -134,6 +144,8 @@ export default function Journal({ open, onClose }) {
       )}
     </AnimatePresence>
   );
+
+  return ReactDOM.createPortal(modal, document.body);
 }
 
 function EmptyJournal({ t }) {
