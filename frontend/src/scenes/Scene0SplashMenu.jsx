@@ -33,7 +33,7 @@ export default function Scene0SplashMenu() {
   const preloadPct = Math.min(100, Math.round((preloadCount / PRELOAD_TOTAL) * 100));
 
   return (
-    <div className="relative w-full h-full parchment-bg overflow-hidden">
+    <div className="relative w-full min-h-screen parchment-bg overflow-hidden">
       {/* Decorative background microscope + cells motif */}
       <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
         <div className="absolute top-10 left-10 text-[220px] font-display text-primary">🔬</div>
@@ -41,7 +41,7 @@ export default function Scene0SplashMenu() {
       </div>
       <div className="absolute inset-0 bg-grain opacity-30 mix-blend-multiply pointer-events-none" />
 
-      <div className="relative z-10 w-full h-full grid grid-cols-1 md:grid-cols-2">
+      <div className="relative z-10 w-full min-h-screen grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* LEFT — brand */}
         <div className="flex flex-col justify-center gap-6 px-8 md:px-14 lg:px-20 py-10">
           <div className="flex items-center gap-3">

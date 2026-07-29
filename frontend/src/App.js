@@ -41,14 +41,12 @@ function SceneRouter() {
   };
 
   return (
-    <div className="fixed inset-0 grid place-items-center bg-[#0a0806] p-2 md:p-4">
-      <div
-        className="relative w-full h-full max-w-[1600px] max-h-[900px] rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.6)] border border-primary/20 bg-cream"
-        data-testid="game-viewport"
-      >
-        <AnimatePresence mode="wait">{renderScene()}</AnimatePresence>
-        <AudioManager />
-      </div>
+    <div
+      className="relative w-full min-h-screen bg-cream"
+      data-testid="game-viewport"
+    >
+      <AnimatePresence mode="wait">{renderScene()}</AnimatePresence>
+      <AudioManager />
     </div>
   );
 }
