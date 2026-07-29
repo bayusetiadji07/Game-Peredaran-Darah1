@@ -75,7 +75,7 @@ export default function Scene2Symptoms() {
       </div>
 
       {/* Rani illustration + hotspots */}
-      <div className="absolute inset-0 grid place-items-center pt-20">
+      <div className="relative w-full min-h-screen grid place-items-center pt-32 pb-28">
         <div className="relative h-[85%] max-h-[92vh]">
           <img
             src="/assets/karakter/rani-pucat.png"
@@ -115,7 +115,7 @@ export default function Scene2Symptoms() {
       </div>
 
       {/* Bottom action bar */}
-      <div className="absolute inset-x-0 bottom-6 z-20 flex justify-center px-6">
+      <div className="fixed inset-x-0 bottom-6 z-40 flex justify-center px-6">
         <div className="bg-paper border-2 border-primary/15 rounded-full shadow-floating px-6 py-3 flex items-center gap-4">
           {!allFound ? (
             <div className="flex items-center gap-2 text-primary/80 font-body text-sm">

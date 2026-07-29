@@ -66,7 +66,7 @@ export default function Scene3Lab() {
       )}
 
       {briefingDone && (
-        <div className="absolute inset-0 pt-24 md:pt-32 pb-6 px-4 md:px-10 flex flex-col z-10">
+        <div className="relative w-full min-h-screen pt-32 md:pt-40 pb-28 px-4 md:px-10 flex flex-col z-10">
           {/* Instruction */}
           <div className="mx-auto max-w-3xl bg-paper/95 border border-primary/15 shadow-card rounded-xl px-5 py-3 mb-5 text-center">
             <p className="font-body text-primary text-sm md:text-base">

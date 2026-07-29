@@ -56,7 +56,7 @@ export default function DialogBox({ lines, onComplete }) {
   if (!current) return null;
 
   return (
-    <div className="absolute inset-x-0 bottom-0 z-30 px-4 md:px-10 pb-6">
+    <div className="fixed inset-x-0 bottom-0 z-30 px-4 md:px-10 pb-6">
       {/* portrait */}
       <div className="pointer-events-none absolute left-6 md:left-10 bottom-[calc(100%-30px)] hidden sm:block">
         <AnimatePresence mode="wait">

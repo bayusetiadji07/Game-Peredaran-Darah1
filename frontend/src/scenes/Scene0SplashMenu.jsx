@@ -33,7 +33,7 @@ export default function Scene0SplashMenu() {
   const preloadPct = Math.min(100, Math.round((preloadCount / PRELOAD_TOTAL) * 100));
 
   return (
-    <div className="relative w-full min-h-screen parchment-bg overflow-hidden">
+    <div className="relative w-full min-h-screen parchment-bg">
       {/* Decorative background microscope + cells motif */}
       <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
         <div className="absolute top-10 left-10 text-[220px] font-display text-primary">🔬</div>

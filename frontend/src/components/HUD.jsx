@@ -16,7 +16,7 @@ export default function HUD({ onOpenJournal, sceneTag, ssiTag }) {
   const clueCount = state.journal.clues.length;
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between p-4 md:p-6">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-start justify-between p-4 md:p-6">
       {/* Left: scene concept tags */}
       <div className="pointer-events-auto flex flex-wrap items-center gap-2 max-w-[55%]">
         {sceneTag && <span className="tag-concept" data-testid="hud-concept-tag">🧪 {sceneTag}</span>}

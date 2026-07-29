@@ -118,7 +118,7 @@ export default function Scene5Interrogation() {
       </div>
 
       {/* Center stage: witnesses at location */}
-      <div className="absolute inset-0 pt-24 md:pt-32 pb-28 px-6 flex items-end justify-center gap-4 md:gap-10 z-10">
+      <div className="relative w-full min-h-screen pt-32 md:pt-40 pb-32 px-6 flex flex-col md:flex-row items-center md:items-end justify-center gap-4 md:gap-10 z-10">
         {witnessesAtLocation.map((w) => {
           const cleared = isWitnessCleared(w.id);
           return (
@@ -153,7 +153,7 @@ export default function Scene5Interrogation() {
       </div>
 
       {/* Progress bar bottom bar */}
-      <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center px-6">
+      <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-6">
         <div className="bg-paper border-2 border-primary/15 rounded-full shadow-floating px-6 py-2.5 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 text-primary font-body text-sm">
             <MapPin size={14} className="text-maroon" />
