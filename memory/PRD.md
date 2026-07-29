@@ -38,7 +38,14 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
 
-## Implemented (Session #5 — 29 Jul 2026 — POLISH v2)
+## Implemented (Session #6 — 29 Jul 2026 — CLOSE-UP ORGAN)
+- ✅ **Close-up Diagram Scene 4 — 4 Organ SVG edukatif**:
+  1. **HeartChambersSVG (Jantung)**: Diagram 4-ruang dengan Serambi Kanan/Kiri, Bilik Kanan/Kiri berwarna beda (biru = miskin O₂, merah = kaya O₂). Animasi partikel darah mengalir dari Vena Cava → serambi kanan → bilik kanan, dan bilik kiri → Aorta. Label lengkap dengan legenda warna.
+  2. **LungGasExchangeSVG (Paru-paru)**: 2 lobus paru + trakea/bronkus. Zoom-in callout circle menampilkan alveolus + kapiler; partikel O₂ (teal) turun ke pembuluh darah, partikel CO₂ (merah) naik keluar dari darah — animasi bertahap.
+  3. **ArterySVG (Arteri/Aorta)**: Cross-section elips 3 lapisan (Tunika Adventisia luar tebal, tunika media garis putus-putus, lumen di tengah). 5 sel darah merah beranimasi mengalir sepanjang lumen. Label kalibrasi anatomi.
+  4. **VeinSVG (Vena Cava)**: Tabung dengan 3 katup semi-lunar (leaflet ganda) yang beranimasi buka-tutup bergiliran (delay 0.6s antar katup). Sel darah biru mengalir searah dengan arrow marker. Label edukatif dinding tipis + fungsi katup.
+- ✅ Semua diagram terintegrasi ke `OrganModal` (Scene 4) dengan layout 2-kolom (deskripsi kiri + diagram kanan), modal diperbesar `max-w-md` → `max-w-2xl`.
+- ✅ Total 8 close-up diagrams (4 Scene 2 + 4 Scene 4) di `/components/CloseUpDiagram.jsx` sekarang berbagi Label helper dan animasi framer-motion konsisten.
 - ✅ **Asset Preloader** (`/utils/assetPreloader.js`): Preload 19 gambar (background + karakter + ilustrasi + ikon) dan 2 audio (musik latar + SFX klik) saat Scene 0 mount. Progress indicator di kanan bawah splash: `Memuat aset · 42%` → `Semua aset siap · v1.0`. Timeout 10s untuk audio agar CDN lambat tidak block. Cache in-memory (`Map`) untuk menghindari re-fetch.
 - ✅ **PDF Preview via pdfjs-dist** (`/components/PdfPreviewModal.jsx`): Modal preview kini menggunakan `pdfjs-dist@4.7.76` untuk merender setiap halaman PDF sebagai `<canvas>` dengan DPI 1.5× device pixel ratio. Bekerja di **semua browser** tanpa bergantung pada PDF viewer bawaan. Header modal punya tombol "Tab Baru" + "Unduh Sekarang", loading spinner saat rendering, error fallback jika PDF gagal parsing. Worker file di-copy ke `/public/pdf.worker.min.mjs`.
 - ✅ **Close-up Diagram Scene 2** (`/components/CloseUpDiagram.jsx`): 4 SVG edukatif interaktif untuk setiap hotspot:

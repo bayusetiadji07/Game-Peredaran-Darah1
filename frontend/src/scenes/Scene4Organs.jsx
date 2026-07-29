@@ -3,6 +3,7 @@ import { motion, AnimatePresence, Reorder } from "framer-motion";
 import { ArrowRight, Check, X, AlertCircle, Heart, ToggleLeft, ToggleRight, Info, Route } from "lucide-react";
 import SceneShell from "../components/SceneShell";
 import ClueUnlockedToast from "../components/ClueUnlockedToast";
+import CloseUpDiagram from "../components/CloseUpDiagram";
 import { SCENE4_ORGANS, SCENE4_PATHS, SCENE4_ARGUMENT, SCENE4_CLUES } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
@@ -379,21 +380,32 @@ function OrganModal({ organ, onClose }) {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="paper-bg max-w-md w-full rounded-2xl border-l-8 border-teal shadow-floating p-6 relative"
+        className="paper-bg max-w-2xl w-full rounded-2xl border-l-8 border-teal shadow-floating relative overflow-hidden"
         data-testid="organ-modal"
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-primary text-cream hover:bg-maroon transition"
+          className="absolute top-3 right-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-primary text-cream hover:bg-maroon transition"
           data-testid="organ-modal-close"
         >
           <X size={16} />
         </button>
-        <div className="tag-concept mb-2">Organ</div>
-        <h3 className="font-display font-bold text-primary text-2xl">{organ.label}</h3>
-        <p className="mt-3 text-primary/85 font-body leading-relaxed">{organ.info}</p>
-        <div className="mt-4 text-teal-dark font-mono text-xs flex items-center gap-1">
-          <Info size={14} /> Ketuk organ lain untuk mempelajari perannya.
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr]">
+          {/* Left: text */}
+          <div className="p-5 md:p-6">
+            <div className="tag-concept mb-2">Organ</div>
+            <h3 className="font-display font-bold text-primary text-2xl leading-tight">
+              {organ.label}
+            </h3>
+            <p className="mt-3 text-primary/85 font-body leading-relaxed text-sm">{organ.info}</p>
+            <div className="mt-4 text-teal-dark font-mono text-xs flex items-center gap-1">
+              <Info size={14} /> Ketuk organ lain untuk mempelajari perannya.
+            </div>
+          </div>
+          {/* Right: interactive diagram */}
+          <div className="bg-cream/50 p-3 md:p-4 border-t md:border-t-0 md:border-l border-primary/10">
+            <CloseUpDiagram hotspotId={organ.id} />
+          </div>
         </div>
       </motion.div>
     </motion.div>
