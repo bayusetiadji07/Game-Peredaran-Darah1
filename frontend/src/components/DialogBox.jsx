@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { playClick } from "./AudioManager";
+import useT from "../hooks/useT";
 
 /**
  * VisualNovel dialog box with typewriter effect.
@@ -11,6 +12,7 @@ import { playClick } from "./AudioManager";
  *  - initialLine: index
  */
 export default function DialogBox({ lines, onComplete }) {
+  const t = useT();
   const [index, setIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
@@ -87,7 +89,7 @@ export default function DialogBox({ lines, onComplete }) {
           {!done && <span className="inline-block w-[8px] h-[1.1em] align-middle bg-primary/70 ml-0.5 animate-blink" />}
         </p>
         <div className="absolute bottom-3 right-4 flex items-center gap-1 text-primary/60 font-mono text-xs">
-          <span>{done ? (current.isFinal || index === lines.length - 1 ? "Mulai" : "Lanjut") : "Skip"}</span>
+          <span>{done ? (current.isFinal || index === lines.length - 1 ? t("dialog.mulai") : t("dialog.lanjut")) : t("dialog.skip")}</span>
           <ChevronRight
             size={16}
             className="animate-float-y group-hover:translate-x-1 transition"

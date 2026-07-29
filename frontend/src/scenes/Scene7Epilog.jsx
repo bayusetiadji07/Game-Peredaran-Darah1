@@ -18,9 +18,11 @@ import PdfPreviewModal from "../components/PdfPreviewModal";
 import { SCENE7_QUIZ, ENDING_THRESHOLD, CATEGORY_LABEL } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 export default function Scene7Epilog() {
   const { state, addScore, answerQuiz, reset } = useGame();
+  const t = useT();
 
   const [answers, setAnswers] = useState(state.quizAnswers || {}); // local mirror to reflect updates instantly
   const [showResults, setShowResults] = useState(false);
@@ -45,7 +47,7 @@ export default function Scene7Epilog() {
   };
 
   const finalTotal = useMemo(() => state.score.total, [state.score.total]);
-  const grade = isElite ? "Detektif Utama" : "Detektif Pemula";
+  const grade = isElite ? t("scene.7.utama") : t("scene.7.pemula");
 
   const formatTime = (sec) => {
     const s = Math.max(0, Math.floor(sec || 0));
@@ -239,7 +241,7 @@ export default function Scene7Epilog() {
       {/* Scene label */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-primary text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 7 · Epilog & Refleksi
+          Scene 7 · {t("scene.7.name")}
         </div>
       </div>
 
@@ -252,6 +254,7 @@ export default function Scene7Epilog() {
             totalScore={finalTotal}
             player={state.player}
             playTime={formatTime(state.playTimeSeconds)}
+            t={t}
           />
 
           {/* Refleksi Quiz */}
@@ -326,7 +329,7 @@ export default function Scene7Epilog() {
   );
 }
 
-function EpilogCard({ isElite, grade, totalScore, player, playTime }) {
+function EpilogCard({ isElite, grade, totalScore, player, playTime, t }) {
   const Icon = isElite ? Trophy : Award;
   return (
     <motion.div
@@ -357,7 +360,7 @@ function EpilogCard({ isElite, grade, totalScore, player, playTime }) {
           <Icon size={14} /> {grade}
         </div>
         <h2 className="font-display font-black text-primary text-3xl md:text-4xl leading-tight mt-3">
-          {isElite ? "Kasus Terpecahkan!" : "Investigasi Berlanjut…"}
+          {isElite ? t("scene.7.title.utama") : t("scene.7.title.pemula")}
         </h2>
         <p className="mt-3 font-body text-primary/85 leading-relaxed">
           {isElite ? (

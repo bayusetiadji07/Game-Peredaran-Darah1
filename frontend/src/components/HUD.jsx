@@ -2,6 +2,7 @@ import React from "react";
 import { Volume2, VolumeX, Notebook, RotateCcw, Clock } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { playClick } from "./AudioManager";
+import useT from "../hooks/useT";
 
 function fmtTime(sec) {
   const s = Math.max(0, Math.floor(sec || 0));
@@ -11,6 +12,7 @@ function fmtTime(sec) {
 
 export default function HUD({ onOpenJournal, sceneTag, ssiTag }) {
   const { state, toggleMute, reset } = useGame();
+  const t = useT();
   const clueCount = state.journal.clues.length;
 
   return (
@@ -66,7 +68,7 @@ export default function HUD({ onOpenJournal, sceneTag, ssiTag }) {
           className="relative flex items-center gap-2 bg-maroon text-cream pl-3 pr-4 py-2 rounded-full shadow-card border border-maroon-dark hover:bg-maroon-dark transition"
         >
           <Notebook size={20} />
-          <span className="font-body font-semibold tracking-wide">Jurnal</span>
+          <span className="font-body font-semibold tracking-wide">{t("hud.jurnal")}</span>
           <span
             className="absolute -top-1.5 -right-1.5 min-w-[22px] h-[22px] px-1 grid place-items-center rounded-full bg-mustard text-ink text-[11px] font-bold font-mono border-2 border-cream"
             data-testid="hud-journal-count"

@@ -5,6 +5,7 @@ import SceneShell from "../components/SceneShell";
 import { SCENE6_COLUMNS, SCENE6_RECOMMENDATIONS, CATEGORY_COLOR } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 /**
  * Scene 6 — Cork Board sebab-akibat
@@ -15,6 +16,7 @@ import { playClick } from "../components/AudioManager";
  */
 export default function Scene6Conclusion() {
   const { state, addScore, goToScene } = useGame();
+  const t = useT();
   const clues = state.journal.clues;
 
   // Local placements: { [clueId]: columnId }
@@ -93,10 +95,10 @@ export default function Scene6Conclusion() {
       {/* Scene label */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-maroon text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 6 · Ruang Kesimpulan
+          Scene 6 · {t("scene.6.name")}
         </div>
         <h1 className="mt-3 font-display font-bold text-cream text-3xl md:text-4xl leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]">
-          Susun Alur Sebab-Akibat
+          {t("scene.6.title")}
         </h1>
       </div>
 

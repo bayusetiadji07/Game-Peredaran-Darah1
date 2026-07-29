@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import useT from "../hooks/useT";
 
 export default function ClueUnlockedToast({ clue, onClose }) {
+  const t = useT();
   return (
     <motion.div
       initial={{ x: 300, opacity: 0 }}
@@ -13,14 +15,14 @@ export default function ClueUnlockedToast({ clue, onClose }) {
       data-testid={`clue-toast-${clue.id}`}
     >
       <div className="text-[10px] font-mono uppercase tracking-widest text-maroon">
-        Petunjuk Baru!
+        {t("toast.new")}
       </div>
       <div className="font-display font-bold text-primary text-lg mt-1">{clue.title}</div>
       <div className="text-primary/70 text-sm mt-1 font-body line-clamp-2">
         {clue.description}
       </div>
       <div className="text-[10px] font-mono uppercase tracking-widest text-primary/50 mt-2">
-        Tersimpan ke Jurnal — klik untuk tutup
+        {t("toast.savedHint")}
       </div>
     </motion.div>
   );

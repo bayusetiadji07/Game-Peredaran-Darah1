@@ -7,9 +7,11 @@ import CloseUpDiagram from "../components/CloseUpDiagram";
 import { SCENE2_HOTSPOTS, SCENE2_QUIZ } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 export default function Scene2Symptoms() {
   const { state, addClue, addScore, answerQuiz, goToScene } = useGame();
+  const t = useT();
   const [activeSpot, setActiveSpot] = useState(null);
   const [toastClue, setToastClue] = useState(null);
   const [quizOpen, setQuizOpen] = useState(false);
@@ -48,20 +50,20 @@ export default function Scene2Symptoms() {
       {/* Scene banner */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-primary text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 2 · Pemeriksaan Gejala
+          Scene 2 · {t("scene.2.name")}
         </div>
         <h1 className="mt-3 font-display font-bold text-cream text-3xl md:text-4xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] leading-tight">
-          Periksa Tubuh Rani
+          {t("scene.2.title")}
         </h1>
         <p className="mt-2 max-w-md text-cream/85 font-body drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-          Klik titik <span className="text-mustard font-semibold">berdenyut</span> untuk mengumpulkan bukti gejala klinis.
+          {t("scene.2.subtitle")}
         </p>
       </div>
 
       {/* Progress badge */}
       <div className="absolute right-6 top-24 md:top-28 z-20 bg-paper/95 backdrop-blur rounded-xl px-4 py-3 shadow-card border border-primary/10">
         <div className="font-mono uppercase text-[10px] tracking-widest text-primary/60">
-          Bukti Ditemukan
+          {t("scene.2.buktiLabel")}
         </div>
         <div className="font-display font-bold text-3xl text-maroon leading-none">
           {foundCount}

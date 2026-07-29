@@ -11,6 +11,7 @@ const defaultState = {
   score: { symptomQuiz: 0, labSort: 0, reasoningFlow: 0, reflectionQuiz: 0, total: 0 },
   playTimeSeconds: 0,
   audio: { muted: false, volume: 0.4 },
+  language: "id", // 'id' | 'jw' | 'su'
   startedAt: null,
 };
 
@@ -105,6 +106,8 @@ export function GameProvider({ children }) {
           return { ...s, score: nextScore };
         }),
       toggleMute: () => setState((s) => ({ ...s, audio: { ...s.audio, muted: !s.audio.muted } })),
+      setLanguage: (code) =>
+        setState((s) => ({ ...s, language: ["id", "jw", "su"].includes(code) ? code : "id" })),
       reset: () => {
         localStorage.removeItem(STORAGE_KEY);
         setState({ ...defaultState });

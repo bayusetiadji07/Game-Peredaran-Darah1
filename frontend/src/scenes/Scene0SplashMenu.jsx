@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check, Loader2 } from "lucide-react";
+import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check, Loader2, Globe } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { AVATARS } from "../data/gameContent";
 import { playClick } from "../components/AudioManager";
 import { preloadAssets, PRELOAD_TOTAL } from "../utils/assetPreloader";
+import { LANGUAGES } from "../utils/i18n";
+import useT from "../hooks/useT";
 
 export default function Scene0SplashMenu() {
-  const { state, setPlayer, goToScene } = useGame();
+  const { state, setPlayer, goToScene, setLanguage } = useGame();
+  const t = useT();
   const [mode, setMode] = useState("menu"); // menu | avatar | help | about
   const [name, setName] = useState(state.player.name || "");
   const [avatarId, setAvatarId] = useState(state.player.avatarId);
@@ -42,18 +45,39 @@ export default function Scene0SplashMenu() {
       <div className="relative z-10 w-full h-full grid grid-cols-1 md:grid-cols-2">
         {/* LEFT — brand */}
         <div className="flex flex-col justify-center gap-6 px-8 md:px-14 lg:px-20 py-10">
+          {/* Language switcher */}
+          <div className="absolute top-6 left-6 flex items-center gap-1 bg-paper/80 border border-primary/15 rounded-full p-1 shadow-card">
+            <Globe size={14} className="text-primary/60 ml-2" />
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                data-testid={`lang-${lang.code}-btn`}
+                onClick={() => {
+                  playClick();
+                  setLanguage(lang.code);
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-body font-semibold transition ${
+                  state.language === lang.code
+                    ? "bg-primary text-cream shadow-card"
+                    : "text-primary/70 hover:bg-primary/10"
+                }`}
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+
           <div className="flex items-center gap-3">
-            <div className="tag-ssi">SMP KELAS VIII · FASE D</div>
-            <div className="tag-concept">Sistem Peredaran Darah</div>
+            <div className="tag-ssi">{t("menu.tagline")}</div>
+            <div className="tag-concept">{t("menu.subtitleConcept")}</div>
           </div>
           <h1 className="font-display font-black text-primary tracking-tight leading-[0.95] text-[clamp(2.4rem,5.4vw,4.6rem)]">
-            Detektif <br />
-            <span className="text-maroon italic">Peredaran</span> <br />
-            Darah.
+            {t("menu.title.line1")} <br />
+            <span className="text-maroon italic">{t("menu.title.line2")}</span> <br />
+            {t("menu.title.line3")}
           </h1>
           <p className="max-w-md font-body text-primary/80 text-lg leading-relaxed">
-            Misteri siswi <b>Rani</b> yang sering pucat, lemas, dan pingsan menantimu.
-            Kumpulkan bukti, pecahkan kasus, dan susun rekomendasi berbasis ilmu pengetahuan.
+            {t("menu.hero.body")}
           </p>
 
           <AnimatePresence mode="wait">
@@ -74,7 +98,7 @@ export default function Scene0SplashMenu() {
                   className="btn-primary justify-between !py-4 !text-lg group"
                 >
                   <span className="flex items-center gap-3">
-                    <Play size={20} /> Mulai Investigasi
+                    <Play size={20} /> {t("menu.mulai")}
                   </span>
                   <ArrowRight className="group-hover:translate-x-1 transition" size={18} />
                 </button>
@@ -87,7 +111,7 @@ export default function Scene0SplashMenu() {
                   className="btn-secondary justify-between"
                 >
                   <span className="flex items-center gap-3">
-                    <HelpCircle size={18} /> Cara Bermain
+                    <HelpCircle size={18} /> {t("menu.caraBermain")}
                   </span>
                 </button>
                 <button
@@ -99,17 +123,17 @@ export default function Scene0SplashMenu() {
                   className="btn-secondary justify-between"
                 >
                   <span className="flex items-center gap-3">
-                    <Info size={18} /> Tentang Game
+                    <Info size={18} /> {t("menu.tentang")}
                   </span>
                 </button>
                 <button
                   data-testid="menu-keluar-btn"
                   onClick={() => {
-                    if (window.confirm("Keluar dari game?")) window.close();
+                    if (window.confirm(t("menu.keluar") + "?")) window.close();
                   }}
                   className="btn-ghost self-start !text-primary/60"
                 >
-                  <LogOut size={16} /> Keluar
+                  <LogOut size={16} /> {t("menu.keluar")}
                 </button>
               </motion.div>
             )}
@@ -122,24 +146,24 @@ export default function Scene0SplashMenu() {
                 exit={{ opacity: 0, y: -12 }}
                 className="mt-2 max-w-lg"
               >
-                <h3 className="heading-detective text-2xl mb-2">Buat Karaktermu</h3>
+                <h3 className="heading-detective text-2xl mb-2">{t("avatar.title")}</h3>
                 <p className="text-primary/70 mb-4 font-body">
-                  Pilih nama detektif dan tampilan avatar. Kamu akan tampil sebagai penyidik utama.
+                  {t("avatar.subtitle")}
                 </p>
                 <label className="block font-mono uppercase tracking-widest text-xs text-primary/70 mb-1">
-                  Nama Detektif
+                  {t("avatar.namaLabel")}
                 </label>
                 <input
                   data-testid="avatar-name-input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Contoh: Sherlock Aini"
+                  placeholder={t("avatar.namaPlaceholder")}
                   maxLength={30}
                   className="w-full bg-paper border-2 border-primary/30 focus:border-maroon outline-none rounded-lg px-4 py-3 font-body text-primary text-lg placeholder:text-primary/40"
                 />
                 <div className="mt-5">
                   <div className="font-mono uppercase tracking-widest text-xs text-primary/70 mb-2">
-                    Pilih Avatar
+                    {t("avatar.pilihAvatar")}
                   </div>
                   <div className="grid grid-cols-4 gap-3">
                     {AVATARS.map((a) => (
@@ -172,7 +196,7 @@ export default function Scene0SplashMenu() {
                     className="btn-secondary"
                     data-testid="avatar-back-btn"
                   >
-                    Kembali
+                    {t("avatar.kembali")}
                   </button>
                   <button
                     disabled={!name.trim()}
@@ -184,7 +208,7 @@ export default function Scene0SplashMenu() {
                     }}
                     className={`btn-primary !py-3 ${!name.trim() ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
-                    Mulai Investigasi <ArrowRight size={18} />
+                    {t("menu.mulai")} <ArrowRight size={18} />
                   </button>
                 </div>
               </motion.div>
@@ -241,12 +265,12 @@ export default function Scene0SplashMenu() {
             {!preloadDone ? (
               <>
                 <Loader2 size={12} className="animate-spin" />
-                <span>Memuat aset · {preloadPct}%</span>
+                <span>{t("preload.loading")} · {preloadPct}%</span>
               </>
             ) : (
               <>
                 <Check size={12} className="text-teal-dark" />
-                <span>Semua aset siap · v1.0</span>
+                <span>{t("preload.done")} · v1.0</span>
               </>
             )}
           </div>
@@ -256,7 +280,7 @@ export default function Scene0SplashMenu() {
   );
 }
 
-function InfoPanel({ title, children, onClose }) {
+function InfoPanel({ title, children, onClose, closeLabel }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -268,8 +292,13 @@ function InfoPanel({ title, children, onClose }) {
       <div className="space-y-3">{children}</div>
       <div className="mt-5">
         <button onClick={onClose} className="btn-primary" data-testid={`info-close-${title}`}>
-          Mengerti
+          {closeLabel || "Mengerti"}
         </button>
+      </div>
+    </motion.div>
+  );
+}
+  </button>
       </div>
     </motion.div>
   );

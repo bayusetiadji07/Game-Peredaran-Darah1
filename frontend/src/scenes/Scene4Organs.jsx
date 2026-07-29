@@ -7,6 +7,7 @@ import CloseUpDiagram from "../components/CloseUpDiagram";
 import { SCENE4_ORGANS, SCENE4_PATHS, SCENE4_ARGUMENT, SCENE4_CLUES } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 // Shuffle helper (Fisher–Yates) — deterministic per session by re-running when tokens change.
 function shuffle(arr) {
@@ -20,6 +21,7 @@ function shuffle(arr) {
 
 export default function Scene4Organs() {
   const { state, addClue, addScore, answerQuiz, goToScene } = useGame();
+  const t = useT();
   const [activeOrgan, setActiveOrgan] = useState(null);
   const [mode, setMode] = useState("normal"); // 'normal' | 'rani'
   const [toast, setToast] = useState(null);
@@ -115,10 +117,10 @@ export default function Scene4Organs() {
       {/* Scene label */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-teal text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 4 · Ruang Organ
+          Scene 4 · {t("scene.4.name")}
         </div>
         <h1 className="mt-3 font-display font-bold text-cream text-3xl md:text-4xl leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">
-          Peta Peredaran Darah
+          {t("scene.4.title")}
         </h1>
       </div>
 

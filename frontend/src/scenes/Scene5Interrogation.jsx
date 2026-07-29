@@ -9,6 +9,7 @@ import { playClick } from "../components/AudioManager";
 
 export default function Scene5Interrogation() {
   const { state, addClue, addScore, answerQuiz, goToScene } = useGame();
+  const t = useT();
 
   const [location, setLocation] = useState("rumah"); // 'rumah' | 'kantin'
   const [activeWitnessId, setActiveWitnessId] = useState(null);
@@ -82,10 +83,10 @@ export default function Scene5Interrogation() {
       {/* Scene label */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-primary text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 5 · Interogasi Saksi
+          Scene 5 · {t("scene.5.name")}
         </div>
         <h1 className="mt-3 font-display font-bold text-cream text-3xl md:text-4xl leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]">
-          Wawancara Narasumber
+          {t("scene.5.title")}
         </h1>
       </div>
 
@@ -99,7 +100,7 @@ export default function Scene5Interrogation() {
             setActiveWitnessId(null);
           }}
           icon={<Home size={14} />}
-          label={SCENE5_LOCATIONS.rumah.label}
+          label={t("scene.5.loc.rumah")}
           testid="loc-rumah-btn"
         />
         <LocationBtn
@@ -110,7 +111,7 @@ export default function Scene5Interrogation() {
             setActiveWitnessId(null);
           }}
           icon={<Utensils size={14} />}
-          label={SCENE5_LOCATIONS.kantin.label}
+          label={t("scene.5.loc.kantin")}
           testid="loc-kantin-btn"
         />
       </div>

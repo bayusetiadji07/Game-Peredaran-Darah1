@@ -7,10 +7,12 @@ import ClueUnlockedToast from "../components/ClueUnlockedToast";
 import { SCENE3_LAB_ITEMS, SCENE3_DIALOG_INTRO } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 export default function Scene3Lab() {
   const [briefingDone, setBriefingDone] = useState(false);
   const { state, addClue, addScore, goToScene } = useGame();
+  const t = useT();
 
   // placed[itemId] = "normal" | "rendah" | undefined (not yet placed)
   const [placed, setPlaced] = useState(() => ({}));
@@ -52,10 +54,10 @@ export default function Scene3Lab() {
       {/* Scene label */}
       <div className="absolute left-6 top-24 md:top-28 z-20">
         <div className="bg-primary text-cream px-4 py-2 rounded-r-full shadow-card font-mono uppercase tracking-widest text-xs">
-          Scene 3 · Laboratorium
+          Scene 3 · {t("scene.3.name")}
         </div>
         <h1 className="mt-3 font-display font-bold text-cream text-3xl md:text-4xl drop-shadow-[0_4px_10px_rgba(0,0,0,0.6)] leading-tight">
-          Uji Darah Rani
+          {t("scene.3.title")}
         </h1>
       </div>
 
