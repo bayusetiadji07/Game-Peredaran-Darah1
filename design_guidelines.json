@@ -1,0 +1,181 @@
+{
+  "theme_and_identity": {
+    "app_type": "educational_game",
+    "target_audience": "Indonesian junior high school students (Grade 8)",
+    "mood": "Detective, investigative, warm, child-friendly, scientifically accurate (non-scary)",
+    "aesthetic": "Vintage investigation board, flat-vector educational, paper/corkboard textures, layered"
+  },
+  "colors": {
+    "primary": {
+      "hex": "#1F3864",
+      "hsl": "hsl(218, 53%, 26%)",
+      "usage": "Primary UI elements, standard text on light backgrounds, main navigation"
+    },
+    "medical_maroon": {
+      "hex": "#8B1E1E",
+      "hsl": "hsl(0, 64%, 33%)",
+      "usage": "Medical elements, blood-related icons, symptom clue cards, red string for investigation"
+    },
+    "interactive_teal": {
+      "hex": "#0F6674",
+      "hsl": "hsl(188, 77%, 26%)",
+      "usage": "Interactive accents, hotspots, lab test clue cards, primary buttons"
+    },
+    "lifestyle_mustard": {
+      "hex": "#B57B0E",
+      "hsl": "hsl(40, 85%, 38%)",
+      "usage": "Lifestyle/social clue cards, secondary warnings"
+    },
+    "neutral_backgrounds": {
+      "cream": {
+        "hex": "#FDFBF7",
+        "hsl": "hsl(40, 50%, 98%)",
+        "usage": "Main app background, clean card backgrounds"
+      },
+      "vintage_paper": {
+        "hex": "#F4EEDC",
+        "hsl": "hsl(45, 50%, 91%)",
+        "usage": "Dialog boxes, Jurnal Investigasi pages, clue cards"
+      }
+    }
+  },
+  "typography": {
+    "headings": {
+      "font_family": "'Fraunces', serif",
+      "weights": ["600", "700"],
+      "usage": "Titles, Scene Headers, Jurnal Title, Clue Categories. Provides a detective, vintage feel."
+    },
+    "body": {
+      "font_family": "'Outfit', sans-serif",
+      "weights": ["400", "500"],
+      "usage": "Dialog text, descriptions, general UI text. Highly readable for Grade 8 students."
+    },
+    "data_monospace": {
+      "font_family": "'Space Mono', monospace",
+      "weights": ["400", "700"],
+      "usage": "Lab results, Jurnal timestamps, numerical medical data."
+    }
+  },
+  "spacing_and_layout": {
+    "scale": "Tailwind spacing scale (p-4, p-6, p-8). Generous padding for comfortable reading.",
+    "layout_strategy": {
+      "game_container": "Fixed aspect ratio (16:9) container max-w-6xl mx-auto, centered on screen, hidden overflow.",
+      "hud": "Absolute positioning for HUD elements (Mute, Jurnal) over the main scene.",
+      "dialog_section": "Bottom 30% of the screen, full width within container, padding p-6."
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "card": "shadow-[0_4px_14px_0_rgba(0,0,0,0.15)]",
+      "floating_element": "shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+    },
+    "borders": {
+      "paper": "border-2 border-[#1F3864]/10 rounded-sm"
+    },
+    "textures": {
+      "corkboard": "Use cork board image with subtle noise overlay.",
+      "paper": "Subtle grain effect on paper-colored backgrounds (#F4EEDC)."
+    }
+  },
+  "components": {
+    "DialogBox": {
+      "style": "bg-[#F4EEDC] border-t-4 border-[#1F3864] p-6 shadow-lg rounded-t-xl",
+      "typography": "Body font, text-lg, text-[#1F3864]",
+      "features": "Typewriter effect for text, 'Next' indicator bouncing at bottom right. Name tag overlapping top-left."
+    },
+    "ClueCard": {
+      "style": "bg-white p-4 shadow-md rounded-sm border-l-4 transform transition-transform hover:scale-105",
+      "categories": {
+        "symptom": "border-l-[#8B1E1E]",
+        "medical": "border-l-[#0F6674]",
+        "lifestyle": "border-l-[#B57B0E]"
+      },
+      "features": "Slight random rotation (e.g., rotate-1, -rotate-2) when pinned on board. Tape or pin decoration on top edge."
+    },
+    "Hotspot": {
+      "style": "w-8 h-8 rounded-full border-2 border-white bg-[#0F6674]/80 cursor-pointer shadow-lg",
+      "animation": "animate-ping (subtle absolute pseudo-element) to draw attention."
+    },
+    "JurnalInvestigasi_Modal": {
+      "overlay": "bg-black/60 backdrop-blur-sm z-50",
+      "container": "w-[90%] h-[90%] bg-cover bg-center rounded-xl overflow-hidden relative shadow-2xl p-8 border-4 border-[#8B1E1E]",
+      "background_texture": "Corkboard texture"
+    },
+    "Button": {
+      "primary": "bg-[#0F6674] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0a4852] transition-colors shadow-md transform hover:-translate-y-1",
+      "secondary": "bg-[#F4EEDC] text-[#1F3864] border-2 border-[#1F3864] px-6 py-3 rounded-full font-bold hover:bg-[#1F3864] hover:text-white transition-colors"
+    }
+  },
+  "motion": {
+    "heart_pulse": {
+      "element": "Splash screen heart icon",
+      "animation": "Scale up to 1.1 and back, duration 0.8s, ease-in-out, infinite (Framer Motion: { scale: [1, 1.1, 1] })"
+    },
+    "clue_stagger": {
+      "element": "Clue cards in Jurnal",
+      "animation": "Staggered entrance, fading in and sliding up slightly (y: 20 -> 0)."
+    },
+    "dialog_typewriter": {
+      "element": "Visual novel dialog text",
+      "animation": "Revealing characters one by one. Include a skip-to-end functionality on click."
+    }
+  },
+  "scenes_blueprint": {
+    "Scene0_SplashMenu": {
+      "layout": "Centered flexbox. Beating heart logo. Title in Fraunces font. Stacked Button list (Mulai, Cara Bermain, dll). Avatar selection panel replaces menu on 'Mulai' click.",
+      "background": "Cream background with subtle medical vectors (microscope, blood cells) floating."
+    },
+    "Scene1_UKS": {
+      "layout": "Visual novel layout. Background asset (UKS). Character (Bu Nita) anchored to left or right. DialogBox anchored to bottom.",
+      "hud": "Persistent Jurnal button top-right, Mute button top-left."
+    },
+    "Scene2_Hotspots": {
+      "layout": "Background asset (UKS). Rani character centered. Absolute positioned Hotspots over eyes, nails, chest, pulse.",
+      "interaction": "Clicking hotspot opens a modal ClueCard with symptom description and mini-quiz (multiple choice)."
+    },
+    "Scene3_LabTest": {
+      "layout": "Split screen or desk perspective. Left: Dr. Salma character with dialog. Right/Center: Digital lab sheet (Space Mono font).",
+      "interaction": "Drag-and-drop mechanism for Hb, Erythrocyte, MCV values into corresponding Normal/Low boxes. Microscopic cell comparison animation running on loop above."
+    }
+  },
+  "media_and_assets": {
+    "provided_assets": [
+      "/app/assets/character-rani-pucat.png",
+      "/app/assets/character-rani-sehat.png",
+      "/app/assets/character-rani-pingsan.png",
+      "/app/assets/character-bu-nita.png",
+      "/app/assets/character-dr-salma.png",
+      "/app/assets/bg-uks.png",
+      "/app/assets/bg-laboratorium.png",
+      "/app/assets/icon-jurnal.png"
+    ],
+    "image_urls": {
+      "corkboard_bg": "https://images.pexels.com/photos/5988420/pexels-photo-5988420.jpeg",
+      "paper_texture": "https://images.pexels.com/photos/5102221/pexels-photo-5102221.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    }
+  },
+  "libraries_and_tools": {
+    "motion": "framer-motion (for heart pulse, clue card stagger, drag-and-drop)",
+    "icons": "lucide-react (for UI icons: Mute, Close, Notebook/Jurnal alternative)",
+    "drag_and_drop": "framer-motion (use drag prop and onDragEnd for simple drop logic, or @hello-pangea/dnd)"
+  },
+  "accessibility": {
+    "contrast": "Ensure white text on #0F6674 and #8B1E1E meets WCAG AA.",
+    "interactions": "All hotspots must be keyboard accessible (tabindex='0') and triggerable via Enter key.",
+    "audio": "Mute button must clearly indicate current state (icon-volume-2 vs icon-volume-x)."
+  },
+  "instructions_to_main_agent": [
+    "Use framer-motion for smooth scene transitions (opacity 0 to 1) instead of abrupt mounting.",
+    "Implement the Jurnal Investigasi as a global state or React Context so collected clues persist across scenes.",
+    "Store progress in localStorage (e.g., unlocked_clues: [], current_scene: 1).",
+    "Do NOT use complete transparent backgrounds for the Jurnal modal overlay; use bg-black/60 backdrop-blur-sm.",
+    "For the visual novel dialog, create a reusable <DialogManager /> component that accepts an array of text strings and handles the typewriter effect and next-click logic."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "All interactive elements MUST include a `data-testid` attribute (e.g., data-testid='jurnal-button', data-testid='hotspot-eye').",
+    "Avoid generic centered layouts except for the main menu.",
+    "Use glass-morphism effects carefully; prefer solid paper/cork textures to fit the detective aesthetic.",
+    "Ensure layering creates depth (z-index strategy): Background -> Characters -> Dialog Box -> HUD -> Modals (Jurnal).",
+    "Never use AI assistant emoji characters for icons. Use lucide-react or provided custom assets."
+  ]
+}
