@@ -38,7 +38,12 @@ User (Bayu Setiadji, S.Pd., Gr., SMP Negeri 3 Besuki, Situbondo) provided a GitH
 - ✅ **Scene 2 — Pemeriksaan Gejala**: 4 hotspot pada Rani (mata, kuku, nadi, dada), clue modal, kuis mini beralasan
 - ✅ **Scene 3 — Laboratorium**: intro Dr. Salma, drag-and-drop 4 kartu lab ke zona NORMAL/RENDAH, mikroskop bar
 
-## Implemented (Session #6 — 29 Jul 2026 — CLOSE-UP ORGAN)
+## Implemented (Session #7 — 29 Jul 2026 — i18n Infrastructure)
+- ✅ **Infrastruktur i18n** dibangun di `/utils/i18n.js` + hook `/hooks/useT.js`
+- ✅ Seluruh UI chrome (menu, tombol, jurnal, HUD, judul scene, toast, dialog controls, preloader label, epilog stats) diganti dari string literal → `t("key")`
+- ✅ Total ~70 key terjemahan terpusat di satu file untuk memudahkan pemeliharaan
+- ⚠️ **Opsi Bahasa Jawa & Sunda dihapus per permintaan user** (30 Jul 2026). Language switcher UI di Scene 0 juga dihapus. Sistem sekarang Bahasa Indonesia saja, TAPI infrastruktur i18n tetap dipertahankan agar penambahan bahasa lain di masa depan tinggal menambah properti pada entry `dict` tanpa refactor ulang komponen.
+- ✅ Support agent dihubungi untuk membantu masalah user tentang push ke GitHub (error 403 Permission denied)
 - ✅ **Close-up Diagram Scene 4 — 4 Organ SVG edukatif**:
   1. **HeartChambersSVG (Jantung)**: Diagram 4-ruang dengan Serambi Kanan/Kiri, Bilik Kanan/Kiri berwarna beda (biru = miskin O₂, merah = kaya O₂). Animasi partikel darah mengalir dari Vena Cava → serambi kanan → bilik kanan, dan bilik kiri → Aorta. Label lengkap dengan legenda warna.
   2. **LungGasExchangeSVG (Paru-paru)**: 2 lobus paru + trakea/bronkus. Zoom-in callout circle menampilkan alveolus + kapiler; partikel O₂ (teal) turun ke pembuluh darah, partikel CO₂ (merah) naik keluar dari darah — animasi bertahap.

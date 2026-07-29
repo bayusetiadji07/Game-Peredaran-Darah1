@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check, Loader2, Globe } from "lucide-react";
+import { Play, HelpCircle, Info, LogOut, ArrowRight, Heart, Check, Loader2 } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { AVATARS } from "../data/gameContent";
 import { playClick } from "../components/AudioManager";
 import { preloadAssets, PRELOAD_TOTAL } from "../utils/assetPreloader";
-import { LANGUAGES } from "../utils/i18n";
 import useT from "../hooks/useT";
 
 export default function Scene0SplashMenu() {
-  const { state, setPlayer, goToScene, setLanguage } = useGame();
+  const { state, setPlayer, goToScene } = useGame();
   const t = useT();
   const [mode, setMode] = useState("menu"); // menu | avatar | help | about
   const [name, setName] = useState(state.player.name || "");
@@ -45,28 +44,6 @@ export default function Scene0SplashMenu() {
       <div className="relative z-10 w-full h-full grid grid-cols-1 md:grid-cols-2">
         {/* LEFT — brand */}
         <div className="flex flex-col justify-center gap-6 px-8 md:px-14 lg:px-20 py-10">
-          {/* Language switcher */}
-          <div className="absolute top-6 left-6 flex items-center gap-1 bg-paper/80 border border-primary/15 rounded-full p-1 shadow-card">
-            <Globe size={14} className="text-primary/60 ml-2" />
-            {LANGUAGES.map((lang) => (
-              <button
-                key={lang.code}
-                data-testid={`lang-${lang.code}-btn`}
-                onClick={() => {
-                  playClick();
-                  setLanguage(lang.code);
-                }}
-                className={`px-3 py-1 rounded-full text-xs font-body font-semibold transition ${
-                  state.language === lang.code
-                    ? "bg-primary text-cream shadow-card"
-                    : "text-primary/70 hover:bg-primary/10"
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
-          </div>
-
           <div className="flex items-center gap-3">
             <div className="tag-ssi">{t("menu.tagline")}</div>
             <div className="tag-concept">{t("menu.subtitleConcept")}</div>
@@ -294,11 +271,6 @@ function InfoPanel({ title, children, onClose, closeLabel }) {
         <button onClick={onClose} className="btn-primary" data-testid={`info-close-${title}`}>
           {closeLabel || "Mengerti"}
         </button>
-      </div>
-    </motion.div>
-  );
-}
-  </button>
       </div>
     </motion.div>
   );

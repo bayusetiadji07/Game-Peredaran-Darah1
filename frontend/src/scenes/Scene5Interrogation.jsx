@@ -6,6 +6,7 @@ import ClueUnlockedToast from "../components/ClueUnlockedToast";
 import { SCENE5_LOCATIONS, SCENE5_WITNESSES, SCENE5_REFLECTION } from "../data/gameContent";
 import { useGame } from "../context/GameContext";
 import { playClick } from "../components/AudioManager";
+import useT from "../hooks/useT";
 
 export default function Scene5Interrogation() {
   const { state, addClue, addScore, answerQuiz, goToScene } = useGame();
