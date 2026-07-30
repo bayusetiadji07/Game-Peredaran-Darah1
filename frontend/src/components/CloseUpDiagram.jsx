@@ -93,7 +93,7 @@ function PulseSVG() {
       <g transform="translate(20,20)">
         <Label x={100} y={0} color="#0F6674">Normal · 72 bpm</Label>
         <rect x={0} y={10} width={200} height={80} fill="#F4EEDC" stroke="#1F3864" strokeWidth="1" />
-        <motion.path
+        <path
           d={normalPath}
           transform="translate(0,10)"
           stroke="#0F6674"
@@ -108,7 +108,7 @@ function PulseSVG() {
       <g transform="translate(20,130)">
         <Label x={100} y={0} color="#8B1E1E">Rani · 110 bpm</Label>
         <rect x={0} y={10} width={200} height={80} fill="#F4EEDC" stroke="#8B1E1E" strokeWidth="1" />
-        <motion.path
+        <path
           d={raniPath}
           transform="translate(0,10)"
           stroke="#8B1E1E"
@@ -147,7 +147,7 @@ function HeartSVG() {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" className="w-full h-full">
       <g transform="translate(70,20)">
         <Label x={80} y={-2} color="#0F6674">Detak Normal</Label>
-        <motion.path
+        <path
           d="M 80 30 C 40 -10, -10 30, 40 80 C 60 100, 80 120, 80 120 C 80 120, 100 100, 120 80 C 170 30, 120 -10, 80 30 Z"
           fill="#8B1E1E"
           stroke="#5A0F0F"
@@ -159,7 +159,7 @@ function HeartSVG() {
       </g>
       <g transform="translate(230,20)">
         <Label x={80} y={-2} color="#8B1E1E">Detak Rani</Label>
-        <motion.path
+        <path
           d="M 80 30 C 40 -10, -10 30, 40 80 C 60 100, 80 120, 80 120 C 80 120, 100 100, 120 80 C 170 30, 120 -10, 80 30 Z"
           fill="#8B1E1E"
           stroke="#5A0F0F"
@@ -383,32 +383,32 @@ function VeinSVG() {
 
         {/* Semi-lunar valves — pair of leaflets pointing right (flow direction) */}
         {/* Valve 1 open */}
-        <motion.g
+        <g
           animate={{ scaleY: [1, 0.15, 1] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           style={{ transformOrigin: "80px 90px" }}
         >
           <path d="M 70 70 Q 90 90 70 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
           <path d="M 90 70 Q 70 90 90 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
-        </motion.g>
+        </g>
         {/* Valve 2 */}
-        <motion.g
+        <g
           animate={{ scaleY: [1, 0.15, 1] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
           style={{ transformOrigin: "200px 90px" }}
         >
           <path d="M 190 70 Q 210 90 190 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
           <path d="M 210 70 Q 190 90 210 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
-        </motion.g>
+        </g>
         {/* Valve 3 */}
-        <motion.g
+        <g
           animate={{ scaleY: [1, 0.15, 1] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
           style={{ transformOrigin: "300px 90px" }}
         >
           <path d="M 290 70 Q 310 90 290 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
           <path d="M 310 70 Q 290 90 310 110 Z" fill="#FBE7DE" stroke="#8B1E1E" strokeWidth="1.5" />
-        </motion.g>
+        </g>
 
         {/* Flowing deoxygenated blood cells (slower & bidirectional-restricted by valves) */}
         {[0, 1, 2].map((i) => (
