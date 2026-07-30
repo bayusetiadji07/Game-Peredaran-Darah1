@@ -30,10 +30,9 @@ const IMAGES = [
   "/assets/ikon/jurnal-investigasi.png",
 ];
 
-const AUDIO_URLS = [
-  "https://cdn.pixabay.com/download/audio/2022/03/15/audio_e77d47ac60.mp3?filename=mysterious-suspense-crime-scene-116959.mp3",
-  "https://cdn.pixabay.com/download/audio/2022/03/10/audio_2ba8a0e5c2.mp3?filename=click-124467.mp3",
-];
+// Served locally so playback never depends on an external CDN's hotlink
+// protection (see AudioManager.jsx for how these are used).
+const AUDIO_URLS = ["/assets/audio/click.mp3", "/assets/audio/bg-music.mp3"];
 
 const cache = { images: new Map(), audios: new Map() };
 
@@ -79,7 +78,7 @@ export function preloadAssets({ onProgress } = {}) {
       };
       a.addEventListener("canplaythrough", done, { once: true });
       a.addEventListener("error", done, { once: true });
-      // 10s timeout so slow CDN doesn't block gameplay
+      // Timeout so a missing/slow file never blocks gameplay.
       setTimeout(done, 10000);
       a.preload = "auto";
       a.src = src;
