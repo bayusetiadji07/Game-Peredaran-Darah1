@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useGame } from "../context/GameContext";
 
 // Mysterious low-fi background music (CC0). Fallback: silent if fails.

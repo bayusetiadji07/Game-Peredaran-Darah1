@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence, Reorder } from "framer-motion";
 import { ArrowRight, Check, X, AlertCircle, Heart, ToggleLeft, ToggleRight, Info, Route } from "lucide-react";
 import SceneShell from "../components/SceneShell";

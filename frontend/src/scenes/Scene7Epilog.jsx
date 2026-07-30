@@ -401,8 +401,6 @@ function StatBox({ label, value, testid }) {
   );
 }
 
-function PdfPreviewModalLegacy() { return null; }
-// PdfPreviewModal is now imported from /components/PdfPreviewModal.jsx
 
 function ReflectionSection({ quiz, answers, onAnswer, correctCount, answerCount, allAnswered, showResults, setShowResults }) {
   return (
