@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+
 
 /**
  * Educational close-up SVG diagrams for Scene 2 clue modals.
@@ -169,7 +169,7 @@ function HeartSVG() {
           style={{ transformOrigin: "80px 75px" }}
         />
         {/* small pulse rings */}
-        <motion.circle
+        <circle
           cx={80 + 0}
           cy={75}
           r={70}
@@ -241,13 +241,13 @@ function HeartChambersSVG() {
       <text x="250" y="14" fontSize="9" fill="#8B1E1E" fontFamily="'Space Mono',monospace" textAnchor="middle" fontWeight="bold">Aorta</text>
 
       {/* Animated blood particles right side (deoxy in) */}
-      <motion.circle
+      <circle
         cx="150" cy="30" r="4" fill="#1F3864"
         animate={{ cy: [20, 70, 150, 190], opacity: [1, 1, 1, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
       {/* Animated blood particles left side (oxy out) */}
-      <motion.circle
+      <circle
         cx="250" cy="180" r="4" fill="#8B1E1E"
         animate={{ cy: [180, 130, 80, 25], opacity: [0, 1, 1, 1] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -298,12 +298,12 @@ function LungGasExchangeSVG() {
       </text>
 
       {/* O2 particles into blood */}
-      <motion.circle
+      <circle
         cx="300" cy="115" r="3.5" fill="#0F6674"
         animate={{ cy: [115, 130, 145], opacity: [1, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, delay: 0 }}
       />
-      <motion.circle
+      <circle
         cx="308" cy="115" r="3.5" fill="#0F6674"
         animate={{ cy: [115, 130, 148], opacity: [1, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
@@ -312,7 +312,7 @@ function LungGasExchangeSVG() {
         O₂ ↓
       </text>
       {/* CO2 particles out of blood */}
-      <motion.circle
+      <circle
         cx="285" cy="140" r="3.5" fill="#8B1E1E"
         animate={{ cy: [140, 120, 100], opacity: [1, 1, 0.3] }}
         transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
@@ -345,7 +345,7 @@ function ArterySVG() {
         <ellipse cx="150" cy="80" rx="95" ry="30" fill="#8B1E1E" opacity="0.85" />
         {/* Flowing red blood cells */}
         {[0, 1, 2, 3, 4].map((i) => (
-          <motion.circle
+          <circle
             key={i}
             cy="80"
             r="5"
@@ -412,7 +412,7 @@ function VeinSVG() {
 
         {/* Flowing deoxygenated blood cells (slower & bidirectional-restricted by valves) */}
         {[0, 1, 2].map((i) => (
-          <motion.circle
+          <circle
             key={i}
             cy="90"
             r="5"

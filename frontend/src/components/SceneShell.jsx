@@ -3,13 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import HUD from "./HUD";
 import Journal from "./Journal";
 
-/**
- * Common scene shell providing HUD + Journal + background image.
- * Props:
- *  - bgUrl: string
- *  - sceneTag, ssiTag
- *  - children
- */
 export default function SceneShell({ bgUrl, sceneTag, ssiTag, children, className = "" }) {
   const [journalOpen, setJournalOpen] = useState(false);
 
@@ -21,21 +14,20 @@ export default function SceneShell({ bgUrl, sceneTag, ssiTag, children, classNam
       transition={{ duration: 0.5 }}
       className={`relative w-full min-h-screen ${className}`}
     >
-      {/* Background — fixed to viewport so it always fills the visible area */}
-      {bgUrl && (
+      {bgUrl ? (
         <div
-          className="fixed inset-0 bg-cover bg-center -z-10"
+          className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[#1F3864] -z-10"
           style={{ backgroundImage: `url(${bgUrl})` }}
         />
+      ) : (
+        <div className="fixed inset-0 bg-gradient-to-b from-primary to-maroon -z-10" />
       )}
-      {/* Vignette + grain */}
+
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(0,0,0,0.55))] -z-10" />
-      <div className="fixed inset-0 bg-grain opacity-40 mix-blend-multiply pointer-events-none -z-10" />
 
       <HUD sceneTag={sceneTag} ssiTag={ssiTag} onOpenJournal={() => setJournalOpen(true)} />
       <Journal open={journalOpen} onClose={() => setJournalOpen(false)} />
 
-      {/* Scene content */}
       <AnimatePresence mode="wait">
         <motion.div
           key="scene-content"

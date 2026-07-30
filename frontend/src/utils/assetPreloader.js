@@ -1,20 +1,16 @@
 /**
- * AssetPreloader — preloads all game images and background audio to avoid
- * flicker at the first scene transition. Reports (loaded, total) progress via callback.
+ * AssetPreloader - preloads all game images to avoid flicker at first scene transition.
+ * Audio is disabled to avoid CDN/404 issues.
  */
 
-// All static assets referenced by the game (excluding UI icons which are inline SVG)
 const IMAGES = [
-  // Backgrounds
   "/assets/background/bg-uks.png",
   "/assets/background/bg-laboratorium.png",
   "/assets/background/bg-rumah-rani.png",
   "/assets/background/bg-kantin.png",
-  // Illustrations
   "/assets/ilustrasi/jantung-splash.png",
   "/assets/ilustrasi/diagram-peredaran-darah.png",
   "/assets/ilustrasi/diagram-sel-darah.png",
-  // Characters
   "/assets/karakter/avatar-detektif-1.png",
   "/assets/karakter/avatar-detektif-2.png",
   "/assets/karakter/avatar-detektif-3.png",
@@ -26,18 +22,13 @@ const IMAGES = [
   "/assets/karakter/rani-pucat.png",
   "/assets/karakter/rani-sehat.png",
   "/assets/karakter/teman-rani.png",
-  // Icons
   "/assets/ikon/jurnal-investigasi.png",
 ];
 
-// Served locally so playback never depends on an external CDN's hotlink
-// protection (see AudioManager.jsx for how these are used).
-const AUDIO_URLS = ["/assets/audio/click.mp3", "/assets/audio/bg-music.mp3"];
-
-const cache = { images: new Map(), audios: new Map() };
+const cache = { images: new Map() };
 
 export function preloadAssets({ onProgress } = {}) {
-  const total = IMAGES.length + AUDIO_URLS.length;
+  const total = IMAGES.length;
   let loaded = 0;
   const bump = () => {
     loaded += 1;
@@ -58,34 +49,13 @@ export function preloadAssets({ onProgress } = {}) {
       };
       img.onerror = () => {
         bump();
-        resolve(); // don't fail — allow game to run even if one asset misses
+        resolve();
       };
       img.src = src;
     });
   });
 
-  const audioPromises = AUDIO_URLS.map((src) => {
-    if (cache.audios.has(src)) {
-      bump();
-      return Promise.resolve();
-    }
-    return new Promise((resolve) => {
-      const a = new Audio();
-      const done = () => {
-        cache.audios.set(src, a);
-        bump();
-        resolve();
-      };
-      a.addEventListener("canplaythrough", done, { once: true });
-      a.addEventListener("error", done, { once: true });
-      // Timeout so a missing/slow file never blocks gameplay.
-      setTimeout(done, 10000);
-      a.preload = "auto";
-      a.src = src;
-    });
-  });
-
-  return Promise.all([...imagePromises, ...audioPromises]).then(() => ({ loaded, total }));
+  return Promise.all(imagePromises).then(() => ({ loaded, total }));
 }
 
-export const PRELOAD_TOTAL = IMAGES.length + AUDIO_URLS.length;
+export const PRELOAD_TOTAL = IMAGES.length;
