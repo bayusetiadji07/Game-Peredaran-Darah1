@@ -209,7 +209,7 @@ export default function Scene0SplashMenu() {
                 kesehatan remaja putri.
               </p>
               <p className="text-primary/85 font-body mt-3 text-sm">
-                Disusun oleh Bayu Setiadji, S.Pd., Gr. — SMP Negeri 3 Besuki, Situbondo.
+                Disusun oleh Vita Mila Sari, S.Pd.
               </p>
             </InfoPanel>}
           </AnimatePresence>
